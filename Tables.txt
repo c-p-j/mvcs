@@ -1,0 +1,33 @@
+tables available
+
+apartment:
+id
+name
+location
+
+plant:
+id
+name
+-- installation_date
+id_category
+status (enabled, disabled)
+reason
+
+sensors:
+sensor name
+serial number
+id_category
+status (enabled, disabled)
+reason
+
+category:
+id
+category name
+
+operator:
+id
+first_name
+last_name
+
+
+this is a temporary file for the tables, er diagram must be done
