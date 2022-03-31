@@ -29,7 +29,7 @@ class ctrllanguage
         };
 
         require_once 'model/molanguage.php';
-        $language = new modelLanguage();
+        $language = new modelApartment();
         $dataset = $language->select($where, $orderBy);
         require_once 'view/vwlanguagelist.php';
     }
@@ -37,16 +37,16 @@ class ctrllanguage
     public function viewlanguageall()
     {
         require_once 'model/molanguage.php';
-        $language = new modelLanguage();
+        $language = new modelApartment();
         $dataset = $language->select([], []);
-        require_once 'view/vwlanguagelist.php';
+        require_once 'old/view/vwlanguagelist.php';
     }
 
     public function insertlanguage()
     {
         require_once 'model/molanguage.php';
         $row = new dataobjLanguage($_POST['codice'], $_POST['descrizione'], date('Y-m-d H:i:s'));
-        $language = new modelLanguage();
+        $language = new modelApartment();
         $count = $language->insert($row);
         require_once 'view/vwlanguageinserted.php';
     }

@@ -1,9 +1,8 @@
 <?php
 
-class ctrlhome
-{
+class ctrlhome {
 
-    public function visualizza()
+    public function view() 
     {
         include './view/vwhome.php';
     }
