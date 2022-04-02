@@ -1,12 +1,4 @@
-<!DOCTYPE html>
-<html>
-
-<head>
-    <title>Elenco film</title>
-</head>
-
-<body>
-    <?php require_once 'view/vwheader.php'; ?>
+<?php require_once 'view/vwheader.php'; ?>
     <h1>Elenco film</h1>
     <table>
         <tr>

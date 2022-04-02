@@ -1,11 +1,5 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <title>Home page</title>
-    </head>
-<body>
 <?php require_once 'view/vwheader.php';?>
-
+<!-- http://localhost/mvcs/?controller=ctrlapartment&action=viewapartmentall# -->
 <h1>Home page</h1>
 <!--     <form action='index.php?controller=ctrllanguage&action=viewlanguageall' method='POST'>
         <input type='submit' value='elenco lingue' >

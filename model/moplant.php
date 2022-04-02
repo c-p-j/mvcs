@@ -1,21 +1,29 @@
 <?php
 
 require_once 'database.php';
-require_once 'dataobject/dooperator.php';
+require_once 'dataobject/doplant.php';
 
-class modeloperator
+class modelPlant
 {
 
     public static function insert($row)
     {
         var_dump($row) . '\n<br>';
         var_dump($row->getlanguage_id());
-        $sqlText = "INSERT INTO operator (
-                    `operator_id`,
-                    `name`,`surname` )
-        VALUES (" . $row->getApartmentCode() . ",'" .
+        $sqlText = "INSERT INTO plant (
+                    `plant_id`,
+                    `status`,
+                    `name`,
+                    `NOR`,
+                    `model_name`,
+                    `apartment_code`,
+                    )
+        VALUES (" . $row->getPlantId() . ",'" .
+            $row->getStatus() . ",'" .
             $row->getName() . ",'" .
-            $row->getSurame() . "')";
+            $row->getNOR() . ",'" .
+            $row->getModelName() . ",'" .
+            $row->getApartmentCode() . "')";
         var_dump($sqlText);
 
         $connection = Database::getConnection();
@@ -44,12 +52,12 @@ class modeloperator
     // -----------------------------------------------------------------------------------------------------
     public static function select($where, $orderBy)
     {
-        $sqlText = "SELECT * FROM operator";
+        $sqlText = "SELECT * FROM plant";
 
         if (isset($where) && count($where) > 0) {
             $sqlText .= " WHERE ";
             foreach ($where as $key => $value) {
-                $sqlText .= $key . "= :" . $key;
+                $sqlText .= $key . "= '" . $value."'";
             }
         }
 
@@ -59,7 +67,7 @@ class modeloperator
                 $sqlText .= " " . $key . " " . $value; // gestire separatore tra coppie
             }
         }
-        //        var_dump ($sqlText);
+               var_dump ($sqlText);
 
         $connection = Database::getConnection();
         $connection->beginTransaction();
@@ -76,7 +84,7 @@ class modeloperator
 
             $dataset = array();
             foreach ($result as $row) {
-                array_push($dataset, new dataobjOperator($row['plant_id'],$row['status'],$row['name'],$row['NOR'],$row['model_name'],$row['apartment_code']));
+                array_push($dataset, new dataobjPlant($row['plant_id'],$row['status'],$row['name'],$row['NOR'],$row['model_name'],$row['apartment_code']));
             }
             return $dataset;
         } catch (PDOException $e) {
@@ -86,5 +94,3 @@ class modeloperator
         }
     }
 }
-
-

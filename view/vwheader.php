@@ -1,5 +1,3 @@
-<?php
-?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -27,7 +25,7 @@
                     <li class="nav-item"></li>
                     <li class="nav-item"><a class="nav-link" href="#">Work with us</a></li>
                     <li class="nav-item"><a class="nav-link" href="#">About</a></li>
-                    <li class="nav-item"><a class="nav-link" href="panel.html">Panel</a></li>
+                    <li class="nav-item"><a class="nav-link" href="index.php?controller=ctrlapartment&action=viewapartmentall">Panel</a></li>
                 </ul>
             </div>
         </div>
