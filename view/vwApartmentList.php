@@ -1,10 +1,10 @@
-
-
 <?php require_once 'view/vwheader.php'; ?>
 
+<br>
+<br>
+<br>
+<br>
 
-
-<h1>Available apartments</h1>
 <!-- <table>
         <tr>
             <th>Code</th>
