@@ -52,10 +52,9 @@ class ctrlsensor
     public function insertsensor()
     {
         require_once 'model/mosensor.php';
-        $row = new dataobjSensor($row['sensor_SN'],$row['status'],$row['NOR'],$row['plant_id'],$row['model_name']);
+        $row = new dataobjSensor($row['sensor_SN'], $row['status'], $row['NOR'], $row['plant_id'], $row['model_name']);
         $sensor = new modelSensor();
         $count = $sensor->insert($row);
         require_once 'view/vwsensorinserted.php';
     }
 }
-

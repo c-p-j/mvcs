@@ -1,8 +1,8 @@
 <?php
 
-class controllerMain 
+class controllerMain
 {
-    public function route() 
+    public function route()
     {
         if (isset($_GET['controller']))
             $controller = $_GET['controller'];
@@ -18,7 +18,7 @@ class controllerMain
         $controller = new $controller();
         $controller->$action();
 
-/*
+        /*
 // primo esempio
     $ctrl='language';
     require_once 'controller/ct'.$ctrl.'.php';
@@ -27,6 +27,5 @@ class controllerMain
 
     //$controller->insertLanguage(array("codice"=>"99", "descrizione"=>"esperanto"));
 */
-}
-
+    }
 }

@@ -52,7 +52,7 @@ class ctrlPlant
     public function insertplant()
     {
         require_once 'model/moplant.php';
-        $row = new dataobjPlant($row['plant_id'],$row['status'],$row['name'],$row['NOR'],$row['model_name'],$row['apartment_code']);
+        $row = new dataobjPlant($row['plant_id'], $row['status'], $row['name'], $row['NOR'], $row['model_name'], $row['apartment_code']);
         $plant = new modelPlant();
         $count = $plant->insert($row);
         require_once 'view/vwplantinserted.php';

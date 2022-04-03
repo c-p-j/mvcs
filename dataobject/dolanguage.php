@@ -41,5 +41,3 @@ function setlast_update($last_update)
 }
 
 }
-
-?>

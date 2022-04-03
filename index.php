@@ -19,5 +19,3 @@
 require_once 'controller/ctrlmain.php';
 $controller = new controllerMain();
 $controller->route();
-
-?>

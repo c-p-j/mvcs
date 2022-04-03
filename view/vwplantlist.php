@@ -1,10 +1,10 @@
-
-
 <?php require_once 'view/vwheader.php'; ?>
 
+<br>
+<br>
+<br>
+<br>
 
-
-<h1>Available plants</h1>
 <!-- <table>
         <tr>
             <th>Code</th>
@@ -45,7 +45,7 @@ if (isset($dataset)) {
                         <p class="card-text"><b>Apartment:</b> <?php echo $row->getApartmentCode() ?></p>
                     </div>
                     <div class="card-body">
-                    <form action="index.php?controller=ctrlsensor&action=viewsensor" method="POST">
+                        <form action="index.php?controller=ctrlsensor&action=viewsensor" method="POST">
                             <input type="hidden" name="where" value="<?php echo $row->getPlantId() ?>">
                             <button type="submit" class="btn btn-primary">Show sensors</button>
 
