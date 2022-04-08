@@ -36,7 +36,7 @@ CREATE TABLE Plant
   PRIMARY KEY (plant_id),
   FOREIGN KEY (model_name) REFERENCES PlantModel(model_name),
   FOREIGN KEY (apartment_code) REFERENCES Apartment(apartment_code),
-  KEY(name)
+  UNIQUE(name)
 );
 
 CREATE TABLE Installs

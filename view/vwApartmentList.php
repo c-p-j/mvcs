@@ -24,18 +24,40 @@ if (isset($dataset)) {
             <div class="col-sm">
                 <div class="card mx-auto w-50">
                     <div class="card-body">
-                        <h5 class="card-title"><b>Apartment <?php echo $row->getApartmentCode() ?></b></h5>
-                        <p class="card-text"><b>Location:</b> <?php echo $row->getAddress() ?></p>
-                    </div>
-                    <div class="card-body">
-                        <form action="index.php?controller=ctrlplant&action=viewplant" method="POST">
-                            <input type="hidden" name="where" value="<?php echo $row->getApartmentCode() ?>">
-                            <button type="submit" class="btn btn-primary">Show plants</button>
 
-                        </form>
-                        <!-- <a href="index.php?controller=ctrlplant&action=viewplant" class="card-link">Show plants</a> -->
+                        <div class="row">
+                            <div class="col">
+                                <h5 class="card-title"><b>Apartment <?php echo $row->getApartmentCode() ?></b></h5>
+                                <p class="card-text"><b>Location:</b> <?php echo $row->getAddress() ?></p>
+                                <!-- </div>
+                    <div class="card-body"> -->
+                                <form action="index.php?controller=ctrlplant&action=viewplant" method="POST">
+                                    <input type="hidden" name="where" value="<?php echo $row->getApartmentCode() ?>">
+                                    <button type="submit" class="btn btn-primary">Show plants</button>
+                                </form>
+                                <form action="index.php?controller=ctrlapartment&action=deleteapartment" method="POST">
+                                    <input type="hidden" name="where" value="<?php echo $row->getApartmentCode() ?>">
+                                    <button type="submit" class="btn btn-primary">Delete</button>
+                                </form>
+                            </div>
+
+                            <div class="dropdown col mx-auto">
+                                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-expanded="false">
+                                    Dropdown button
+                                </button>
+                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                    <a class="dropdown-item" href="#">Action</a>
+                                    <a class="dropdown-item" href="#">Another action</a>
+                                    <a class="dropdown-item" href="#">Something else here</a>
+                                </div>
+                            </div>
+
+                        </div>
                     </div>
+
                 </div>
+
+
             </div>
         </div>
 

@@ -1,21 +1,23 @@
 <?php
 
 require_once 'database.php';
-require_once 'dataobject/doapartment.php';
+require_once 'dataobject/doinstallation.php';
 
-class modelApartment
+class modelInstallation
 {
 
     public static function insert($row)
     {
         var_dump($row) . '\n<br>';
         var_dump($row->getlanguage_id());
-        $sqlText = "INSERT INTO apartment (
-                    `apartment_code`,
-                    `address`)
-        VALUES (" . $row->getApartmentCode()
-            . ",'" . $row->getAddress() . ")";
+        $sqlText = "INSERT INTO installation (
+                    `dateTime`,
+                    `plant_id`,`operator_id` )
+        VALUES (" . $row->getDateTime() . ",'" .
+            $row->getPlantId() . ",'" .
+            $row->getOperatorId() . "')";
         var_dump($sqlText);
+
 
         $connection = Database::getConnection();
         $connection->beginTransaction();
@@ -36,37 +38,17 @@ class modelApartment
         // ...
     }
 
-    public static function delete($where)
+    public static function delete($pl)
     {
-        $sqlText = "DELETE FROM apartment";
-
-        if (isset($where) && count($where) > 0) {
-            $sqlText .= " WHERE ";
-            foreach ($where as $key => $value) {
-                $sqlText .= $key . "= '" . $value . "'";
-            }
-        }else{
-            return 0;
-        }
-
-        $connection = Database::getConnection();
-        $connection->beginTransaction();
-
-        try {
-            $sql = $connection->prepare($sqlText);
-            $result = $sql->execute();
-            $connection->commit();
-            return $result;
-        } catch (PDOException $e) {
-            $connection->rollback();
-            echo "Error delete: " . $sqlText . " " . $e->getMessage();
-            return 0;
-        }
+        // ...
     }
     // -----------------------------------------------------------------------------------------------------
     public static function select($where, $orderBy)
     {
-        $sqlText = "SELECT * FROM apartment";
+        $sqlText = "SELECT dateTime, p.name AS implant, concat(o.name,' ', o.surname) AS operator, plant_id, operator_id
+                    FROM installs
+                    JOIN plant p USING (plant_id) JOIN operator o using(operator_id);";
+
 
         if (isset($where) && count($where) > 0) {
             $sqlText .= " WHERE ";
@@ -98,7 +80,8 @@ class modelApartment
 
             $dataset = array();
             foreach ($result as $row) {
-                array_push($dataset, new dataobjApartment($row["apartment_code"], $row["address"]));
+                array_push($dataset, new dataobjInstallation($row['dateTime'], $row['implant'], $row['operator'], $row['plant_id'], $row['operator_id']));
+                // array_push($dataset, new dataobjInstallation($row['dateTime'],$row['implant'],$row['operator']));
             }
             return $dataset;
         } catch (PDOException $e) {

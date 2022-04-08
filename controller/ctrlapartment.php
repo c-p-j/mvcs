@@ -50,4 +50,20 @@ class ctrlapartment
         $count = $apartment->insert($row);
         require_once 'view/vwapartmentinserted.php';
     }
+
+    public function deleteapartment()
+    {
+        require_once 'model/moapartment.php';
+        
+        if (isset($_POST['where'])) {
+            $where = array('apartment_code' => $_POST['where']);
+        } else {
+            $where = [];
+        };
+
+        // $row = new dataobjApartment($_POST['code'], $_POST['address']);
+        $apartment = new modelApartment();
+        $apartment->delete($where);
+        // require_once 'view/vwapartmentinserted.php';
+    }
 }

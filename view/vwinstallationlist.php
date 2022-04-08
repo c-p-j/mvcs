@@ -52,13 +52,11 @@
         //var_dump($dataset);
         if (isset($dataset)) {
             foreach ($dataset as $row) {
-                // echo "<tr>";
-                // echo "<td>" . $row->getSensorSN() . "</td>";
-                // echo "<td>" . $row->getStatus() . "</td>";
-                // echo "<td>" . $row->getNOR() . "</td>";
-                // echo "<td>" . $row->getPlantId() . "</td>";
-                // echo "<td>" . $row->getModelName() . "</td>";
-                // echo "</tr>";
+                echo "<tr>";
+                echo "<td>" . $row->getPlantName() . "</td>";
+                echo "<td>" . $row->getOperatorName() . "</td>";
+                echo "<td>" . $row->getDateTime() . "</td>";
+                echo "</tr>";
             }
         }
         ?>
