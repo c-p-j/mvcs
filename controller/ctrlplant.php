@@ -15,7 +15,7 @@ class ctrlPlant
         //     $orderBy = [];
         // };
         if (isset($_POST['where'])) {
-            $where = array('apartment_code' => $_POST['where']);
+            $where = array('plant_code' => $_POST['where']);
             $orderBy = array('name' => 'asc');
         } else {
             $where = [];
@@ -52,9 +52,27 @@ class ctrlPlant
     public function insertplant()
     {
         require_once 'model/moplant.php';
-        $row = new dataobjPlant($row['plant_id'], $row['status'], $row['name'], $row['NOR'], $row['model_name'], $row['apartment_code']);
+        $row = new dataobjPlant($row['plant_id'], $row['status'], $row['name'], $row['NOR'], $row['model_name'], $row['plant_code']);
         $plant = new modelPlant();
         $count = $plant->insert($row);
         require_once 'view/vwplantinserted.php';
+    }
+
+    public function deleteplant()
+    {
+        require_once 'model/moplant.php';
+
+        if (isset($_POST['where'])) {
+            $where = array('plant_id' => $_POST['where']);
+        } else {
+            $where = [];
+            require_once 'view/error.php';
+            return;
+        };
+
+        // $row = new dataobjplant($_POST['code'], $_POST['address']);
+        $plant = new modelPlant();
+        $count = $plant->delete($where);
+        // require_once 'view/vwplantdeleted.php';
     }
 }

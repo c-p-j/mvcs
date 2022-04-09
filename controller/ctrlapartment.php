@@ -1,6 +1,6 @@
 <?php
 require_once 'dataobject/doapartment.php';
-
+//justin sei tu? scrivi in chat se si
 class ctrlapartment
 {
 
@@ -54,16 +54,18 @@ class ctrlapartment
     public function deleteapartment()
     {
         require_once 'model/moapartment.php';
-        
+
         if (isset($_POST['where'])) {
             $where = array('apartment_code' => $_POST['where']);
         } else {
             $where = [];
+            require_once 'view/error.php';
+            return;
         };
 
         // $row = new dataobjApartment($_POST['code'], $_POST['address']);
         $apartment = new modelApartment();
-        $apartment->delete($where);
-        // require_once 'view/vwapartmentinserted.php';
+        $count = $apartment->delete($where);
+        require_once 'view/vwapartmentdeleted.php';
     }
 }

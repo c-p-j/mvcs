@@ -3,3 +3,7 @@ $('.datepicker').each(function(){
 		field: this
 	});
 });
+
+/* $('.dropdown').click(function(){
+	$('.dropdown-menu').toggleClass('show');
+  }); */

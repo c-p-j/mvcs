@@ -57,4 +57,22 @@ class ctrlsensor
         $count = $sensor->insert($row);
         require_once 'view/vwsensorinserted.php';
     }
+
+    public function deletesensor()
+    {
+        require_once 'model/mosensor.php';
+
+        if (isset($_POST['where'])) {
+            $where = array('sensor_SN' => $_POST['where']);
+        } else {
+            $where = [];
+            require_once 'view/error.php';
+            return;
+        };
+
+        // $row = new dataobjsensor($_POST['code'], $_POST['address']);
+        $sensor = new modelsensor();
+        $count = $sensor->delete($where);
+        require_once 'view/vwsensordeleted.php';
+    }
 }

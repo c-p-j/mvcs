@@ -53,8 +53,8 @@
         if (isset($dataset)) {
             foreach ($dataset as $row) {
                 echo "<tr>";
-                echo "<td>" . $row->getPlantName() . "</td>";
-                echo "<td>" . $row->getOperatorName() . "</td>";
+                echo "<td>" . $row->getPlantId() . "</td>";
+                echo "<td>" . $row->getOperatorId() . "</td>";
                 echo "<td>" . $row->getDateTime() . "</td>";
                 echo "</tr>";
             }

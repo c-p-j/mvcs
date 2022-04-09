@@ -34,8 +34,8 @@ CREATE TABLE Plant
   model_name VARCHAR(50) NOT NULL,
   apartment_code VARCHAR(30) NOT NULL,
   PRIMARY KEY (plant_id),
-  FOREIGN KEY (model_name) REFERENCES PlantModel(model_name),
-  FOREIGN KEY (apartment_code) REFERENCES Apartment(apartment_code),
+  FOREIGN KEY (model_name) REFERENCES PlantModel(model_name) ON UPDATE CASCADE ON DELETE RESTRICT,
+  FOREIGN KEY (apartment_code) REFERENCES Apartment(apartment_code) ON UPDATE CASCADE ON DELETE RESTRICT,
   UNIQUE(name)
 );
 
@@ -45,8 +45,8 @@ CREATE TABLE Installs
   plant_id INT NOT NULL,
   operator_id INT NOT NULL,
   PRIMARY KEY (plant_id, operator_id),
-  FOREIGN KEY (plant_id) REFERENCES Plant(plant_id),
-  FOREIGN KEY (operator_id) REFERENCES Operator(operator_id),
+  FOREIGN KEY (plant_id) REFERENCES Plant(plant_id) ON UPDATE CASCADE ON DELETE RESTRICT,
+  FOREIGN KEY (operator_id) REFERENCES Operator(operator_id) ON UPDATE CASCADE ON DELETE RESTRICT,
   KEY(dateTime)
 );
 
@@ -58,6 +58,6 @@ CREATE TABLE Sensor
   plant_id INT NOT NULL,
   model_name VARCHAR(50) NOT NULL,
   PRIMARY KEY (sensor_SN),
-  FOREIGN KEY (plant_id) REFERENCES Plant(plant_id),
-  FOREIGN KEY (model_name) REFERENCES SensorModel(model_name)
+  FOREIGN KEY (plant_id) REFERENCES Plant(plant_id) ON UPDATE CASCADE ON DELETE RESTRICT,
+  FOREIGN KEY (model_name) REFERENCES SensorModel(model_name) ON UPDATE CASCADE ON DELETE RESTRICT
 );

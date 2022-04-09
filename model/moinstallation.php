@@ -45,9 +45,7 @@ class modelInstallation
     // -----------------------------------------------------------------------------------------------------
     public static function select($where, $orderBy)
     {
-        $sqlText = "SELECT dateTime, p.name AS implant, concat(o.name,' ', o.surname) AS operator, plant_id, operator_id
-                    FROM installs
-                    JOIN plant p USING (plant_id) JOIN operator o using(operator_id);";
+        $sqlText = "SELECT * FROM installs;";
 
 
         if (isset($where) && count($where) > 0) {
@@ -80,7 +78,7 @@ class modelInstallation
 
             $dataset = array();
             foreach ($result as $row) {
-                array_push($dataset, new dataobjInstallation($row['dateTime'], $row['implant'], $row['operator'], $row['plant_id'], $row['operator_id']));
+                array_push($dataset, new dataobjInstallation($row['dateTime'], $row['plant_id'], $row['operator_id']));
                 // array_push($dataset, new dataobjInstallation($row['dateTime'],$row['implant'],$row['operator']));
             }
             return $dataset;

@@ -36,9 +36,32 @@ class modelSensor
         // ...
     }
 
-    public static function delete($pl)
+    public static function delete($where)
     {
-        // ...
+        $sqlText = "DELETE FROM sensor";
+
+        if (isset($where) && count($where) > 0) {
+            $sqlText .= " WHERE ";
+            foreach ($where as $key => $value) {
+                $sqlText .= $key . "= '" . $value . "'";
+            }
+        }else{
+            return 0;
+        }
+
+        $connection = Database::getConnection();
+        $connection->beginTransaction();
+
+        try {
+            $sql = $connection->prepare($sqlText);
+            $result = $sql->execute();
+            $connection->commit();
+            return $result;
+        } catch (PDOException $e) {
+            $connection->rollback();
+            echo "Error delete: " . $sqlText . " " . $e->getMessage();
+            return 0;
+        }
     }
     // -----------------------------------------------------------------------------------------------------
     public static function select($where, $orderBy)

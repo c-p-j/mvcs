@@ -53,4 +53,22 @@ class ctrloperator
         $count = $operator->insert($row);
         require_once 'view/vwoperatorinserted.php';
     }
+
+    public function deleteoperator()
+    {
+        require_once 'model/moapartment.php';
+
+        if (isset($_POST['where'])) {
+            $where = array('operator_id' => $_POST['where']);
+        } else {
+            $where = [];
+            require_once 'view/error.php';
+            return;
+        };
+
+        // $row = new dataobjApartment($_POST['code'], $_POST['address']);
+        $operator = new modelApartment();
+        $count = $apartment->delete($where);
+        // require_once 'view/vwaoperatordeleted.php'; //TODO: modifica
+    }
 }

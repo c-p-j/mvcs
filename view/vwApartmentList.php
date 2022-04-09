@@ -5,6 +5,7 @@
 <br>
 <br>
 
+
 <!-- <table>
         <tr>
             <th>Code</th>
@@ -41,23 +42,12 @@ if (isset($dataset)) {
                                 </form>
                             </div>
 
-                            <div class="dropdown col mx-auto">
-                                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-expanded="false">
-                                    Dropdown button
-                                </button>
-                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                    <a class="dropdown-item" href="#">Action</a>
-                                    <a class="dropdown-item" href="#">Another action</a>
-                                    <a class="dropdown-item" href="#">Something else here</a>
-                                </div>
-                            </div>
+
 
                         </div>
                     </div>
 
                 </div>
-
-
             </div>
         </div>
 
@@ -77,6 +67,18 @@ if (isset($dataset)) {
 ?>
 
 
+
+<!-- <div class="dropdown">
+  <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-expanded="false">
+    Dropdown link
+  </a>
+
+  <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+    <a class="dropdown-item" href="#">Action</a>
+    <a class="dropdown-item" href="#">Another action</a>
+    <a class="dropdown-item" href="#">Something else here</a>
+  </div>
+</div> -->
 <?php require_once 'view/vwfooter.php'; ?>
 </body>
 
