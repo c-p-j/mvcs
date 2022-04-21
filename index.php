@@ -15,7 +15,8 @@
             "length"=>"100"));
     */
     
-    
+
+    //se il login va a buon fine
 require_once 'controller/ctrlmain.php';
 $controller = new controllerMain();
 $controller->route();

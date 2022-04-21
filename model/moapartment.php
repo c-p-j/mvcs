@@ -98,7 +98,7 @@ class modelApartment
 
             $dataset = array();
             foreach ($result as $row) {
-                array_push($dataset, new dataobjApartment($row["apartment_code"], $row["address"]));
+                array_push($dataset, new dataobjApartment($row["apartment_code"], $row["address"]/* , $row["active_implants"] */));
             }
             return $dataset;
         } catch (PDOException $e) {

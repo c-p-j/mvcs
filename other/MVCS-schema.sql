@@ -6,6 +6,8 @@ CREATE TABLE Apartment
 (
   apartment_code VARCHAR(10),
   address VARCHAR(50) NOT NULL,
+  active_implants INT NULL DEFAULT 0,
+  -- CHECK(ISNULL(active_implants) || active_implants > 0), 
   PRIMARY KEY (apartment_code)
 );
 
@@ -65,3 +67,12 @@ CREATE TABLE Sensor
   FOREIGN KEY (plant_id) REFERENCES Plant(plant_id) ON UPDATE CASCADE ON DELETE RESTRICT,
   FOREIGN KEY (model_name) REFERENCES SensorModel(model_name) ON UPDATE CASCADE ON DELETE RESTRICT
 );
+
+-- DELIMITER $$   
+-- CREATE OR REPLACE TRIGGER trg1 AFTER INSERT  
+-- ON plant FOR EACH ROW  
+-- BEGIN  
+--   SET @apc = OLD.apartment_code;
+--   UPDATE apartment set active_implants = (SELECT COUNT(*) FROM plant WHERE status = 1 AND apartment_code = @apc) where apartment_code = @apc;
+-- END$$  
+-- DELIMITER ;  

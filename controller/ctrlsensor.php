@@ -20,6 +20,8 @@ class ctrlsensor
         } else {
             $where = [];
             $orderBy = [];
+            // require_once 'view/errorpage.php';
+            // return;
         };
         var_dump($_GET);
         var_dump($_POST);
