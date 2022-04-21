@@ -15,7 +15,7 @@ class ctrlPlant
         //     $orderBy = [];
         // };
         if (isset($_POST['where'])) {
-            $where = array('plant_code' => $_POST['where']);
+            $where = array('apartment_code' => $_POST['where']);
             $orderBy = array('name' => 'asc');
         } else {
             $where = [];
@@ -25,8 +25,8 @@ class ctrlPlant
         var_dump($_POST);
 
         if (isset($_POST['order'])) {
-            if ($_POST['order'] == 'plant_code') {
-                $orderBy = array('plant_code' => 'asc');
+            if ($_POST['order'] == 'apartment_code') {
+                $orderBy = array('apartment_code' => 'asc');
             };
             if ($_POST['order'] == 'address') {
                 $orderBy = array('address' => 'asc'); //TODO: modifica

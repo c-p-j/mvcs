@@ -1,3 +1,7 @@
+DROP DATABASE IF EXISTS mvcsensory;
+CREATE DATABASE mvcsensory;
+USE mvcsensory;
+
 CREATE TABLE Apartment
 (
   apartment_code VARCHAR(10),

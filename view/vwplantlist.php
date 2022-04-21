@@ -50,6 +50,10 @@ if (isset($dataset)) {
                             <button type="submit" class="btn btn-primary">Show sensors</button>
 
                         </form>
+                        <form action="index.php?controller=ctrlplant&action=deleteplant" method="POST">
+                            <input type="hidden" name="where" value="<?php echo $row->getPlantId() ?>">
+                            <button type="submit" class="btn btn-primary">Delete</button>
+                        </form>
                     </div>
                 </div>
             </div>

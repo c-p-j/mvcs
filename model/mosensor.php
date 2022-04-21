@@ -43,11 +43,13 @@ class modelSensor
         if (isset($where) && count($where) > 0) {
             $sqlText .= " WHERE ";
             foreach ($where as $key => $value) {
-                $sqlText .= $key . "= '" . $value . "'";
+                $sqlText .= $key . ' = "' . $value;
             }
         }else{
             return 0;
         }
+
+        // var_dump($sqlText);
 
         $connection = Database::getConnection();
         $connection->beginTransaction();

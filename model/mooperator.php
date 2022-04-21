@@ -99,7 +99,7 @@ class modeloperator
 
             $dataset = array();
             foreach ($result as $row) {
-                array_push($dataset, new dataobjOperator($row['plant_id'],$row['status'],$row['name'],$row['NOR'],$row['model_name'],$row['apartment_code']));
+                array_push($dataset, new dataobjOperator($row['operator_id'],$row['name'],$row['surname']));
             }
             return $dataset;
         } catch (PDOException $e) {

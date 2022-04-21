@@ -27,6 +27,7 @@
 <table id="sensors" class="display table table-striped table-bordered">
     <thead>
         <tr>
+            <th>Delete</th>
             <th>Serial Number</th>
             <th>Status</th>
             <th>NOR</th>
@@ -41,11 +42,16 @@
         if (isset($dataset)) {
             foreach ($dataset as $row) {
                 echo "<tr>";
+                echo '<td> <form action="index.php?controller=ctrlsensor&action=deletesensor" method="POST">
+                <input type="hidden" name="where" value=' . $row->getSensorSN() . '">
+                <button type="submit" >Delete</button>
+            </form></td>';
                 echo "<td>" . $row->getSensorSN() . "</td>";
                 echo "<td>" . $row->getStatus() . "</td>";
                 echo "<td>" . $row->getNOR() . "</td>";
                 echo "<td>" . $row->getPlantId() . "</td>";
                 echo "<td>" . $row->getModelName() . "</td>";
+
                 echo "</tr>";
             }
         }

@@ -71,7 +71,7 @@ class ctrlsensor
         };
 
         // $row = new dataobjsensor($_POST['code'], $_POST['address']);
-        $sensor = new modelsensor();
+        $sensor = new modelSensor();
         $count = $sensor->delete($where);
         require_once 'view/vwsensordeleted.php';
     }
