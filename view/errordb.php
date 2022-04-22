@@ -1,11 +1,11 @@
 <?php
 require_once "view/header.php";
 
-echo $result;
 ?>
-<p>
-    <a href='.'> Pag. precedente</a>
-</p>
+<div class="page">
+    <h1><?php echo $result;?></h1>
+    <a href='http://localhost/mvcs/'> Previous page</a>
+</div>
 <?php
 require_once "view/header.php";
 ?>

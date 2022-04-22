@@ -81,7 +81,7 @@ class modelapartment {
                 $dataset=array();
                 foreach ($result as $row) 
                 {
-                    array_push($dataset, new dataobjApartment($row["apartment_code"], $row["address"])); 
+                    // array_push($dataset, new dataobjApartment($row["apartment_code"], $row["address"])); 
                 } 
                 return $dataset;
             }

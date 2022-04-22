@@ -78,10 +78,12 @@ class modelApartment
         if (isset($orderBy) && count($orderBy) > 0) {
             $sqlText .= " ORDER BY ";
             foreach ($orderBy as $key => $value) {
-                $sqlText .= " " . $key . " " . $value; // gestire separatore tra coppie
+                // $sqlText .= " " . $key . " " . $value; // gestire separatore tra coppie
+                $sqlText .= $key . "= :" . $key;
+
             }
         }
-        //        var_dump ($sqlText);
+            //    var_dump ($sqlText);
 
         $connection = Database::getConnection();
         $connection->beginTransaction();
@@ -95,10 +97,10 @@ class modelApartment
             $result = $sql->fetchAll();
             $connection->commit();
             // primo modo   return $result;
-
+            // var_dump($result);
             $dataset = array();
             foreach ($result as $row) {
-                array_push($dataset, new dataobjApartment($row["apartment_code"], $row["address"]/* , $row["active_implants"] */));
+                array_push($dataset, new dataobjApartment($row["apartment_code"], $row["address"], $row["active_implants"]));
             }
             return $dataset;
         } catch (PDOException $e) {

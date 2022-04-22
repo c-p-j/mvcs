@@ -14,8 +14,8 @@ class ctrlapartment
             $where = [];
             $orderBy = [];
         };
-        var_dump($_GET);
-        var_dump($_POST);
+        // var_dump($_GET);
+        // var_dump($_POST);
 
         if (isset($_POST['order'])) {
             if ($_POST['order'] == 'apartment_code') {
@@ -45,7 +45,7 @@ class ctrlapartment
     public function insertapartment()
     {
         require_once 'model/moapartment.php';
-        $row = new dataobjApartment($_POST['code'], $_POST['address']);
+        $row = new dataobjApartment($_POST['code'], $_POST['address'], $_POST['active_implants']);
         $apartment = new modelApartment();
         $count = $apartment->insert($row);
         require_once 'view/vwapartmentinserted.php';

@@ -30,9 +30,8 @@ if (isset($dataset)) {
                             <div class="col">
                                 <h5 class="card-title"><b>Apartment <?php echo $row->getApartmentCode() ?></b></h5>
                                 <p class="card-text"><b>Location:</b> <?php echo $row->getAddress() ?></p>
-                                <!-- <p class="card-text"><b>Active implants:</b> <?php //echo $row->getActiveImplants() ?></p> -->
-                                <!-- </div>
-                    <div class="card-body"> -->
+                                <p class="card-text"><b>Active implants:</b> <?php echo $row->getActiveImplants() ?></p>
+
                                 <form action="index.php?controller=ctrlplant&action=viewplant" method="POST">
                                     <input type="hidden" name="where" value="<?php echo $row->getApartmentCode() ?>">
                                     <button type="submit" class="btn btn-primary">Show plants</button>

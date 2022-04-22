@@ -1,11 +1,14 @@
 <?php
 require_once "vwheader.php";
 ?>
-<link rel="stylesheet" href="../css/bootstrap.min.css">
-<h1> Error </h1>
-<p>
-    <a href='.'> Previous page</a>
-</p>
+
+<div class="page text-center">
+    <h1> Error: action not allowed or server error </h1>
+    <p>
+        <a href='http://localhost/mvcs/'> Previous page</a>
+    </p>
+</div>
+
 <?php
 require_once "vwfooter.php";
 ?>

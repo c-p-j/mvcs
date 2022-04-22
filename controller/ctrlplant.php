@@ -69,10 +69,8 @@ class ctrlPlant
             require_once 'view/error.php';
             return;
         };
-
-        // $row = new dataobjplant($_POST['code'], $_POST['address']);
         $plant = new modelPlant();
         $count = $plant->delete($where);
-        // require_once 'view/vwplantdeleted.php';
+        require_once 'view/vwplantdeleted.php';
     }
 }

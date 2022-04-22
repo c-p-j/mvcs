@@ -6,9 +6,9 @@ CREATE TABLE Apartment
 (
   apartment_code VARCHAR(10),
   address VARCHAR(50) NOT NULL,
-  active_implants INT NULL DEFAULT 0,
-  -- CHECK(ISNULL(active_implants) || active_implants > 0), 
-  PRIMARY KEY (apartment_code)
+  active_implants INT NOT NULL DEFAULT 0,
+  PRIMARY KEY (apartment_code),
+  CHECK(ISNULL(active_implants) || active_implants >= 0) 
 );
 
 CREATE TABLE Operator
@@ -68,11 +68,10 @@ CREATE TABLE Sensor
   FOREIGN KEY (model_name) REFERENCES SensorModel(model_name) ON UPDATE CASCADE ON DELETE RESTRICT
 );
 
--- DELIMITER $$   
--- CREATE OR REPLACE TRIGGER trg1 AFTER INSERT  
--- ON plant FOR EACH ROW  
--- BEGIN  
---   SET @apc = OLD.apartment_code;
---   UPDATE apartment set active_implants = (SELECT COUNT(*) FROM plant WHERE status = 1 AND apartment_code = @apc) where apartment_code = @apc;
--- END$$  
--- DELIMITER ;  
+CREATE OR REPLACE TRIGGER FillActiveImplantsInsert AFTER INSERT  
+ON plant FOR EACH ROW    
+  UPDATE apartment set active_implants = (SELECT COUNT(*) FROM plant WHERE status = 1 AND apartment_code = new.apartment_code) where apartment_code = new.apartment_code;   
+
+CREATE OR REPLACE TRIGGER FillActiveImplantsDelete AFTER DELETE  
+ON plant FOR EACH ROW    
+  UPDATE apartment set active_implants = (SELECT COUNT(*) FROM plant WHERE status = 1 AND apartment_code = old.apartment_code) where apartment_code = old.apartment_code;  
