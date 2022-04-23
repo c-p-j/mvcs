@@ -14,9 +14,9 @@
     <section class="portfolio-block photography">
         <div class="container">
             <div class="row no-gutters">
-                <div class="col-md-6 col-lg-4 item zoom-on-hover"><a href="#"><img class="img-fluid image" src="./img/nature/image5.jpg"></a></div>
-                <div class="col-md-6 col-lg-4 item zoom-on-hover"><a href="#"><img class="img-fluid image" src="./img/nature/image2.jpg"></a></div>
-                <div class="col-md-6 col-lg-4 item zoom-on-hover"><a href="#"><img class="img-fluid image" src="./img/tech/image4.jpg"></a></div>
+                <div class="col-md-6 col-lg-4 item zoom-on-hover"><a href="index.php?controller=ctrlapartment&action=viewapartmentall"><img class="img-fluid image" src="./img/home/apartment.jpg"></a></div>
+                <div class="col-md-6 col-lg-4 item zoom-on-hover"><a href="index.php?controller=ctrlinstallation&action=viewinstallationall"><img class="img-fluid image" src="./img/home/installations.jpg"></a></div>
+                <div class="col-md-6 col-lg-4 item zoom-on-hover"><a href="index.php?controller=ctrloperator&action=viewoperatorall"><img class="img-fluid image" src="./img/home/operator.jpg"></a></div>
             </div>
         </div>
     </section>

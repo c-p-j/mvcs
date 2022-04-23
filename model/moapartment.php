@@ -9,12 +9,11 @@ class modelApartment
     public static function insert($row)
     {
         var_dump($row) . '\n<br>';
-        var_dump($row->getlanguage_id());
         $sqlText = "INSERT INTO apartment (
                     `apartment_code`,
                     `address`)
-        VALUES (" . $row->getApartmentCode()
-            . ",'" . $row->getAddress() . ")";
+        VALUES ('" . $row->getApartmentCode()
+            . "','" . $row->getAddress() . "')";
         var_dump($sqlText);
 
         $connection = Database::getConnection();

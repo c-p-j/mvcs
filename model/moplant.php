@@ -17,13 +17,14 @@ class modelPlant
                     `NOR`,
                     `model_name`,
                     `apartment_code`,
+                    `active_sensors`
                     )
         VALUES (" . $row->getPlantId() . ",'" .
             $row->getStatus() . ",'" .
             $row->getName() . ",'" .
             $row->getNOR() . ",'" .
             $row->getModelName() . ",'" .
-            $row->getApartmentCode() . "')";
+            $row->getApartmentCode() . ",' 0')";
         var_dump($sqlText);
 
         $connection = Database::getConnection();
@@ -107,7 +108,7 @@ class modelPlant
 
             $dataset = array();
             foreach ($result as $row) {
-                array_push($dataset, new dataobjPlant($row['plant_id'],$row['status'],$row['name'],$row['NOR'],$row['model_name'],$row['apartment_code']));
+                array_push($dataset, new dataobjPlant($row['plant_id'],$row['status'],$row['name'],$row['NOR'],$row['model_name'],$row['apartment_code'],$row['active_sensors']));
             }
             return $dataset;
         } catch (PDOException $e) {

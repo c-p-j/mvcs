@@ -24,6 +24,7 @@ if (isset($dataset)) {
                     <div class="card-body">
                         <h5 class="card-title"><b><?php echo $row->getName() ?></b></h5>
                         <p class="card-text"><b>ID:</b> <?php echo $row->getPlantId() ?></p>
+                        <p class="card-text"><b>Active Sensors:</b> <?php echo $row->getActiveSensors() ?></p>
                         <p class="card-text"><b>Plant type:</b> <?php echo $row->getModelName() ?></p>
                         <p class="card-text"><b>Status:</b>
                             <?php
