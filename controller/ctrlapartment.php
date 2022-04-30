@@ -1,6 +1,6 @@
 <?php
 require_once 'dataobject/doapartment.php';
-//justin sei tu? scrivi in chat se si
+
 class ctrlapartment
 {
 
@@ -44,11 +44,20 @@ class ctrlapartment
 
     public function insertapartment()
     {
+        // $row = new dataobjPlant($row['plant_id'], $row['status'], $row['name'], $row['NOR'], $row['model_name'], $row['apartment_code'], $row['active_sensors']);
+        // $plant = new modelPlant();
+        // $count = $plant->insert($row);
+        // require_once 'view/vwplantinserted.php';
         require_once 'model/moapartment.php';
-        $row = new dataobjApartment($_POST['code'], $_POST['address'], $_POST['active_implants']);
-        $apartment = new modelApartment();
-        $count = $apartment->insert($row);
-        require_once 'view/vwapartmentinserted.php';
+
+        if (isset($_POST['code'], $_POST['address'], $_POST['active_implants'])) {
+            $row = new dataobjApartment($_POST['code'], $_POST['address'], $_POST['active_implants']);
+            $apartment = new modelApartment();
+            $count = $apartment->insert($row);
+            require_once 'view/vwapartmentinserted.php';
+        } else {
+            require_once 'view/insertapartment.php';
+        }
     }
 
     public function deleteapartment()

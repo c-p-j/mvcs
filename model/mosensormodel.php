@@ -1,30 +1,18 @@
 <?php
 
 require_once 'database.php';
-require_once 'dataobject/doplant.php';
+require_once 'dataobject/dosensormodel.php';
 
-class modelPlant
+class modelSensorModel
 {
 
     public static function insert($row)
     {
         var_dump($row) . '\n<br>';
         // var_dump($row->getlanguage_id());
-        $sqlText = "INSERT INTO plant (
-                    `plant_id`,
-                    `status`,
-                    `name`,
-                    `NOR`,
-                    `model_name`,
-                    `apartment_code`,
-                    `active_sensors`
-                    )
-        VALUES (" . $row->getPlantId() . "," .
-            $row->getStatus() . ",'" .
-            $row->getName() . "'," .
-            $row->getNOR() . ",'" .
-            $row->getModelName() . "','" .
-            $row->getApartmentCode() . "',0)";
+        $sqlText = "INSERT INTO sensormodel (
+                    `model_name`)
+        VALUES ('" . $row->getModelName() . "')";
         var_dump($sqlText);
 
         $connection = Database::getConnection();
@@ -48,16 +36,18 @@ class modelPlant
 
     public static function delete($where)
     {
-        $sqlText = "DELETE FROM plant";
+        $sqlText = "DELETE FROM sensormodel";
 
         if (isset($where) && count($where) > 0) {
             $sqlText .= " WHERE ";
             foreach ($where as $key => $value) {
-                $sqlText .= $key . "= '" . $value . "'";
+                $sqlText .= $key . ' = "' . $value;
             }
-        }else{
+        } else {
             return 0;
         }
+
+        // var_dump($sqlText);
 
         $connection = Database::getConnection();
         $connection->beginTransaction();
@@ -76,12 +66,12 @@ class modelPlant
     // -----------------------------------------------------------------------------------------------------
     public static function select($where, $orderBy)
     {
-        $sqlText = "SELECT * FROM plant";
+        $sqlText = "SELECT * FROM sensormodel";
 
         if (isset($where) && count($where) > 0) {
             $sqlText .= " WHERE ";
             foreach ($where as $key => $value) {
-                $sqlText .= $key . " = '" . $value."'";
+                $sqlText .= $key . "= " . $value;
             }
         }
 
@@ -91,7 +81,7 @@ class modelPlant
                 $sqlText .= " " . $key . " " . $value; // gestire separatore tra coppie
             }
         }
-               var_dump ($sqlText);
+        //        var_dump ($sqlText);
 
         $connection = Database::getConnection();
         $connection->beginTransaction();
@@ -108,7 +98,7 @@ class modelPlant
 
             $dataset = array();
             foreach ($result as $row) {
-                array_push($dataset, new dataobjPlant($row['plant_id'],$row['status'],$row['name'],$row['NOR'],$row['model_name'],$row['apartment_code'],$row['active_sensors']));
+                array_push($dataset, new dataobjSensorModel($row['model_name']));
             }
             return $dataset;
         } catch (PDOException $e) {

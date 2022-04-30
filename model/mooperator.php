@@ -9,13 +9,13 @@ class modeloperator
     public static function insert($row)
     {
         var_dump($row) . '\n<br>';
-        var_dump($row->getlanguage_id());
+        // var_dump($row->getlanguage_id());
         $sqlText = "INSERT INTO operator (
                     `operator_id`,
                     `name`,`surname` )
-        VALUES (" . $row->getApartmentCode() . ",'" .
-            $row->getName() . ",'" .
-            $row->getSurame() . "')";
+        VALUES (NULL ,'" .
+            $row->getName() . "','" .
+            $row->getSurname() . "')";
         var_dump($sqlText);
 
         $connection = Database::getConnection();

@@ -48,10 +48,22 @@ class ctrloperator
     public function insertoperator()
     {
         require_once 'model/mooperator.php';
-        $row = new dataobjOperator($_POST['code'], $_POST['name'], $_POST['surname']);
-        $operator = new modeloperator();
-        $count = $operator->insert($row);
-        require_once 'view/vwoperatorinserted.php';
+        // $row = new dataobjOperator($_POST['code'], $_POST['name'], $_POST['surname']);
+        // $operator = new modeloperator();
+        // $count = $operator->insert($row);
+        // require_once 'model/moplant.php';
+
+        if (isset($_POST['name'], $_POST['surname'])) {
+
+            $row = new dataobjOperator(NULL, $_POST['name'], $_POST['surname']);
+            $operator = new modeloperator();
+            $count = $operator->insert($row);
+            require_once 'view/vwoperatorinserted.php';
+        } else {
+            // require_once 'model/moapartment.php';
+            // require_once 'model/moplantmodel.php';
+            require_once 'view/insertoperator.php';
+        }
     }
 
     public function deleteoperator()

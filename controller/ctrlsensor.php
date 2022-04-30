@@ -54,10 +54,25 @@ class ctrlsensor
     public function insertsensor()
     {
         require_once 'model/mosensor.php';
-        $row = new dataobjSensor($row['sensor_SN'], $row['status'], $row['NOR'], $row['plant_id'], $row['model_name']);
-        $sensor = new modelSensor();
-        $count = $sensor->insert($row);
-        require_once 'view/vwsensorinserted.php';
+        // $row = new dataobjSensor($row['sensor_SN'], $row['status'], $row['NOR'], $row['plant_id'], $row['model_name']);
+        // $sensor = new modelSensor();
+        // $count = $sensor->insert($row);
+        // require_once 'view/vwsensorinserted.php';
+        // require_once 'model/moplant.php';
+
+        if (isset( $_POST['sensor_SN'], $_POST['status'], $_POST['NOR'], $_POST['plant_id'], $_POST['model_name'])) {
+            if (empty($_POST['NOR']))
+                $_POST['NOR'] = "NULL";
+    
+            $row = new dataobjSensor($_POST['sensor_SN'], $_POST['status'], $_POST['NOR'], $_POST['plant_id'], $_POST['model_name']);
+            $plant = new modelSensor();
+            $count = $plant->insert($row);
+            require_once 'view/vwsensorinserted.php';
+        }else{
+            require_once 'model/moplant.php';
+            require_once 'model/mosensormodel.php';
+            require_once 'view/insertsensor.php';
+        }
     }
 
     public function deletesensor()

@@ -9,13 +9,13 @@ class modelInstallation
     public static function insert($row)
     {
         var_dump($row) . '\n<br>';
-        var_dump($row->getlanguage_id());
+        // var_dump($row->getlanguage_id());
         $sqlText = "INSERT INTO installation (
                     `dateTime`,
                     `plant_id`,`operator_id` )
-        VALUES (" . $row->getDateTime() . ",'" .
-            $row->getPlantId() . ",'" .
-            $row->getOperatorId() . "')";
+        VALUES ('" . $row->getDateTime() . "'," .
+            $row->getPlantId() . "," .
+            $row->getOperatorId() . ")";
         var_dump($sqlText);
 
 
@@ -45,7 +45,7 @@ class modelInstallation
     // -----------------------------------------------------------------------------------------------------
     public static function select($where, $orderBy)
     {
-        $sqlText = "SELECT * FROM installs;";
+        $sqlText = "SELECT * FROM installation;";
 
 
         if (isset($where) && count($where) > 0) {

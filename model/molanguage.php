@@ -8,7 +8,7 @@ class modelapartment {
     public static function insert($row) 
     {
         var_dump($row).'\n<br>';
-        var_dump($row->getlanguage_id());
+        // var_dump($row->getlanguage_id());
         $sqlText = "INSERT INTO apartment (
                     `apartment_code`,
                     `address`)

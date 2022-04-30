@@ -51,11 +51,25 @@ class ctrlPlant
 
     public function insertplant()
     {
+        // $row = new dataobjPlant($row['plant_id'], $row['status'], $row['name'], $row['NOR'], $row['model_name'], $row['apartment_code'], $row['active_sensors']);
+        // $plant = new modelPlant();
+        // $count = $plant->insert($row);
+        // require_once 'view/vwplantinserted.php';
         require_once 'model/moplant.php';
-        $row = new dataobjPlant($row['plant_id'], $row['status'], $row['name'], $row['NOR'], $row['model_name'], $row['apartment_code']);
-        $plant = new modelPlant();
-        $count = $plant->insert($row);
-        require_once 'view/vwplantinserted.php';
+
+        if (isset( $_POST['status'], $_POST['name'], $_POST['NOR'], $_POST['model_name'], $_POST['apartment_code'])) {
+            if (empty($_POST['NOR']))
+                $_POST['NOR'] = "NULL";
+    
+            $row = new dataobjPlant("NULL", $_POST['status'], $_POST['name'], $_POST['NOR'], $_POST['model_name'], $_POST['apartment_code'],0);
+            $plant = new modelPlant();
+            $count = $plant->insert($row);
+            require_once 'view/vwplantinserted.php';
+        }else{
+            require_once 'model/moapartment.php';
+            require_once 'model/moplantmodel.php';
+            require_once 'view/insertplant.php';
+        }
     }
 
     public function deleteplant()

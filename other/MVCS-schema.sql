@@ -47,7 +47,7 @@ CREATE TABLE Plant
   CHECK(active_sensors >= 0)
 );
 
-CREATE TABLE Installs
+CREATE TABLE Installation
 (
   dateTime DATETIME NOT NULL,
   plant_id INT NOT NULL,

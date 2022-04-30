@@ -9,12 +9,14 @@ class modelSensor
     public static function insert($row)
     {
         var_dump($row) . '\n<br>';
-        var_dump($row->getlanguage_id());
+        // var_dump($row->getlanguage_id());
         $sqlText = "INSERT INTO sensor (
-                    `sensor_code`,
-                    `address`)
-        VALUES (" . $row->getsensorCode()
-            . ",'" . $row->getAddress() . ")";
+                    `sensor_SN`,
+                    `status`,
+                    `NOR`,
+                    `plant_id`,
+                    `model_name`)
+        VALUES ('" . $row->getSensorSN(). "'," . $row->getStatusBool(). ",'". $row->getNOR(). "'," . $row->getPlantId(). ",'" . $row->getModelName() . "')";
         var_dump($sqlText);
 
         $connection = Database::getConnection();
