@@ -3,7 +3,7 @@
 require 'vwheader.php';
 ?>
 
-<div class="page">
+
     <form action="/mvcs/index.php?controller=ctrloperator&action=insertoperator" method="POST">
         <input type="text" name="name" placeholder="name">
         <input type="text" name="surname" placeholder="surname">

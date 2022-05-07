@@ -3,7 +3,7 @@
 require 'vwheader.php';
 ?>
 
-<div class="page">
+
     <div class="container mx-auto">
         <div class="form-group">
             <form action="/mvcs/index.php?controller=ctrlplant&action=insertplant" method="POST">

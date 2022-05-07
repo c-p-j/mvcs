@@ -60,7 +60,7 @@ class modelapartment {
             $sqlText .= " ORDER BY ";
             foreach ($orderBy as $key => $value)
             {
-                $sqlText .=" ".$key." ".$value; // gestire separatore tra coppie
+                $sqlText .= $key . "= :" . $key; // gestire separatore tra coppie
             }
         }
 //        var_dump ($sqlText);

@@ -49,7 +49,7 @@ CREATE TABLE Plant
 
 CREATE TABLE Installation
 (
-  dateTime DATETIME NOT NULL,
+  dateTime DATE NOT NULL,
   plant_id INT NOT NULL,
   operator_id INT NOT NULL,
   PRIMARY KEY (plant_id, operator_id),

@@ -1,29 +1,30 @@
 <?php require_once 'view/vwheader.php'; ?>
 
-<h1>MVCS - Home</h1>
+<style>
+    .btn {
+        background-color: DodgerBlue;
+        border: none;
+        color: white;
+        padding: 12px 16px;
+        font-size: 16px;
+        cursor: pointer;
+    }
+</style>
 
 <main class="page lanidng-page">
-    <section class="portfolio-block block-intro">
-        <div class="container">
+    <div class="container">
+        <div class="d-flex justify-content-center align-items-center content">
+            <h3>Panels</h3>
         </div>
-    </section>
-    <section class="portfolio-block photography">
-        <div class="container">
-            <div class="row no-gutters">
-                <div class="col-md-6 col-lg-4 item zoom-on-hover"><a href="index.php?controller=ctrlapartment&action=viewapartmentall"><img class="img-fluid image" src="./img/home/apartment.jpg"></a></div>
-                <div class="col-md-6 col-lg-4 item zoom-on-hover"><a href="index.php?controller=ctrlinstallation&action=viewinstallationall"><img class="img-fluid image" src="./img/home/installations.jpg"></a></div>
-                <div class="col-md-6 col-lg-4 item zoom-on-hover"><a href="index.php?controller=ctrloperator&action=viewoperatorall"><img class="img-fluid image" src="./img/home/operator.jpg"></a></div>
-            </div>
+    </div>
+
+    <div class="container">
+        <div class="d-flex justify-content-center align-items-center content">
+            <button class="btn"><a href="index.php?controller=ctrlapartment&action=viewapartmentall"><i class="fa fa-home"></i></a></button>
+            <button class="btn"><a href="index.php?controller=ctrlinstallation&action=viewinstallationall"><i class="fa fa-home"></i></a></button>
+            <button class="btn"><a href="index.php?controller=ctrloperator&action=viewoperatorall"><i class="fa fa-home"></i></a></button>
         </div>
-    </section>
-    <section class="portfolio-block call-to-action border-bottom">
-        <div class="container">
-            <div class="d-flex justify-content-center align-items-center content">
-                <h3>Like what you see?</h3><button class="btn btn-outline-primary btn-lg" type="button">Contact
-                    us</button>
-            </div>
-        </div>
-    </section>
+    </div>
     <section class="portfolio-block skills" style="padding-top: 0px;">
         <div class="container">
             <div class="heading"></div>

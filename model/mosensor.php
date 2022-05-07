@@ -45,7 +45,7 @@ class modelSensor
         if (isset($where) && count($where) > 0) {
             $sqlText .= " WHERE ";
             foreach ($where as $key => $value) {
-                $sqlText .= $key . ' = "' . $value;
+                $sqlText .= $key . "= :" . $key;
             }
         }else{
             return 0;
@@ -75,14 +75,14 @@ class modelSensor
         if (isset($where) && count($where) > 0) {
             $sqlText .= " WHERE ";
             foreach ($where as $key => $value) {
-                $sqlText .= $key . "= " . $value;
+                $sqlText .= $key . "= :" . $key;
             }
         }
 
         if (isset($orderBy) && count($orderBy) > 0) {
             $sqlText .= " ORDER BY ";
             foreach ($orderBy as $key => $value) {
-                $sqlText .= " " . $key . " " . $value; // gestire separatore tra coppie
+                $sqlText .= $key . "= :" . $key; // gestire separatore tra coppie
             }
         }
         //        var_dump ($sqlText);

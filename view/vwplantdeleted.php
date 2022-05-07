@@ -8,7 +8,7 @@ require_once "vwheader.php";
     </h2>
     <a href='http://localhost/mvcs/?controller=ctrlapartment&action=viewapartmentall'> Previous page</a>
 </div>
-
+</div>
 <?php
 require_once "vwfooter.php";
 ?>

@@ -38,7 +38,7 @@ require 'vwheader.php';
             $dataset = $sns->select([], []);
 
             foreach ($dataset as $row) {
-                echo '<option value="' . $row->getPlantId() . '">' . $row->getPlantId() . '</option>';
+                echo '<option value="' . $row->getPlantId() . '">' . $row->getPlantId() .' - '. $row->getName() .'</option>';
             }
 
             ?>

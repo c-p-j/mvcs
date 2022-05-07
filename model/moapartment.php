@@ -40,7 +40,8 @@ class modelApartment
         if (isset($where) && count($where) > 0) {
             $sqlText .= " WHERE ";
             foreach ($where as $key => $value) {
-                $sqlText .= $key . "= '" . $value . "'";
+                $sqlText .= $key . "= :" . $key;
+
             }
         }else{
             return 0;
