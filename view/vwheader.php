@@ -10,8 +10,11 @@
     <link rel="icon" type="image/png" sizes="32x32" href="assets/img/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="180x180" href="assets/img/apple-icon-180x180.png">
     <link rel="icon" type="image/png" sizes="192x192" href="assets/img/android-icon-192x192.png">
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
     <link rel="stylesheet" href="http://localhost/mvcs/css/bootstrap.min.css">
-    
+
+
     <!-- <link rel="canonical" href="https://getbootstrap.com/docs/4.6/components/dropdowns/">
     <link rel="stylesheet" href="https://getbootstrap.com/docs/4.6/dist/css/bootstrap.min.css"> -->
 </head>

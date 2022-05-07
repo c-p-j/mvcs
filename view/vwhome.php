@@ -5,10 +5,6 @@
 <main class="page lanidng-page">
     <section class="portfolio-block block-intro">
         <div class="container">
-            <div class="about-me">
-                <p>Hello! I am <strong>Malia jafor</strong>. I work as interface and front end developer. I have
-                    passion for pixel perfect, minimal and easy to use interfaces.</p>
-            </div>
         </div>
     </section>
     <section class="portfolio-block photography">
