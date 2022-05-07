@@ -3,7 +3,7 @@
 require 'vwheader.php';
 ?>
 
-<div class="page">
+
     <form action="/mvcs/index.php?controller=ctrlinstallation&action=insertinstallation" method="POST">
         <input type="date" name="datetime" placeholder="datetime">
 
@@ -16,7 +16,7 @@ require 'vwheader.php';
             $dataset = $sns->select([], []);
 
             foreach ($dataset as $row) {
-                echo '<option value="' . $row->getPlantId() . '">' . $row->getPlantId() . '</option>';
+                echo '<option value="' . $row->getPlantId() . '">' . $row->getPlantId() .' - '. $row->getName() .'</option>';
             }
 
             ?>
@@ -30,7 +30,7 @@ require 'vwheader.php';
             $dataset = $sns->select([], []);
 
             foreach ($dataset as $row) {
-                echo '<option value="' . $row->getOperatorId() . '">' . $row->getOperatorId() . '</option>';
+                echo '<option value="' . $row->getOperatorId() . '">' . $row->getOperatorId() .' - '. $row->getName() .' '. $row->getSurname() .'</option>';
             }
 
             ?>

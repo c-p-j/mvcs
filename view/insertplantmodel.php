@@ -11,6 +11,7 @@ require 'vwheader.php';
         <input type="submit">
     </form>
 </div>
+</div>
 <?php
 // require '../dataobject/dosensormodel.php';
 require 'vwfooter.php';

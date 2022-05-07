@@ -8,7 +8,7 @@ require_once "vwheader.php";
         <a href='http://localhost/mvcs/'> Previous page</a>
     </p>
 </div>
-
+</div>
 <?php
 require_once "vwfooter.php";
 ?>

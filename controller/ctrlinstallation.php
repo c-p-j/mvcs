@@ -60,7 +60,7 @@ class ctrlinstallation
 
         if (isset($_POST['datetime'], $_POST['plant_id'], $_POST['operator_id'])) {
 
-            $row = new dataobjInstallation(date('Y-m-d', $_POST['datetime']), $_POST['plant_id'], $_POST['operator_id']);
+            $row = new dataobjInstallation($_POST['datetime'], $_POST['plant_id'], $_POST['operator_id']);
             $installation = new modelInstallation();
             $count = $installation->insert($row);
             require_once 'view/vwinstallationinserted.php';
