@@ -12,55 +12,51 @@
 </style>
 
 <main class="page lanidng-page">
-    <div class="container">
+    <!-- <div class="container">
         <div class="d-flex justify-content-center align-items-center content">
             <h3>Panels</h3>
         </div>
-    </div>
+    </div> -->
 
-    <div class="container">
+    <!-- <div class="container">
         <div class="d-flex justify-content-center align-items-center content">
             <button class="btn"><a href="index.php?controller=ctrlapartment&action=viewapartmentall"><i class="fa fa-home"></i></a></button>
             <button class="btn"><a href="index.php?controller=ctrlinstallation&action=viewinstallationall"><i class="fa fa-home"></i></a></button>
             <button class="btn"><a href="index.php?controller=ctrloperator&action=viewoperatorall"><i class="fa fa-home"></i></a></button>
         </div>
-    </div>
-    <section class="portfolio-block skills" style="padding-top: 0px;">
+    </div> -->
+
+<!-- Main part of the page, containing the buttons -->
+    <section class="portfolio-block skills border-0" style="padding-top: 0px;">
         <div class="container">
             <div class="heading"></div>
             <div class="row">
                 <div class="col-md-4">
                     <div class="card special-skill-item border-0">
-                        <div class="card-header bg-transparent border-0"><i class="icon ion-ios-star-outline"></i>
+                        <div class="card-header bg-transparent border-0"><a href="index.php?controller=ctrlapartment&action=viewapartmentall"><i class="fa fa-home fa-border fa-4x" aria-hidden="true"></i></a>
                         </div>
                         <div class="card-body">
-                            <h3 class="card-title">Web Design</h3>
-                            <p class="card-text">Nullam id dolor id nibh ultricies vehicula ut id elit. Cras justo
-                                odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida
-                                at eget metus.</p>
+                            <h3 class="card-title">Apartments</h3>
+                            <p class="card-text">Manage the apartments we're working on.</p>
                         </div>
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="card special-skill-item border-0">
-                        <div class="card-header bg-transparent border-0"><i class="icon ion-ios-lightbulb-outline"></i></div>
+                        <div class="card-header bg-transparent border-0"><a href="index.php?controller=ctrlinstallation&action=viewinstallationall"><i class="fa fa-cogs fa-border fa-4x" aria-hidden="true"></i></a>
+                        </div>
                         <div class="card-body">
-                            <h3 class="card-title">Interface Design</h3>
-                            <p class="card-text">Nullam id dolor id nibh ultricies vehicula ut id elit. Cras justo
-                                odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida
-                                at eget metus.</p>
+                            <h3 class="card-title">Installations</h3>
+                            <p class="card-text">View the works carried out and those in progress.</p>
                         </div>
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="card special-skill-item border-0">
-                        <div class="card-header bg-transparent border-0"><i class="icon ion-ios-gear-outline"></i>
-                        </div>
+                        <div class="card-header bg-transparent border-0"><a href="index.php?controller=ctrloperator&action=viewoperatorall"><i class="fa fa-briefcase fa-border fa-4x" aria-hidden="true"></i></a></div>
                         <div class="card-body">
-                            <h3 class="card-title">Photography and Print</h3>
-                            <p class="card-text">Nullam id dolor id nibh ultricies vehicula ut id elit. Cras justo
-                                odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida
-                                at eget metus.</p>
+                            <h3 class="card-title">Operators</h3>
+                            <p class="card-text">Have a look at our workforce.</p>
                         </div>
                     </div>
                 </div>
@@ -68,7 +64,7 @@
         </div>
     </section>
 </main>
-<section class="portfolio-block website gradient">
+<!-- <section class="portfolio-block website gradient">
     <div class="container">
         <div class="row align-items-center">
             <div class="col-md-12 col-lg-5 offset-lg-1 text">
@@ -87,7 +83,7 @@
             </div>
         </div>
     </div>
-</section>
+</section> -->
 
 <?php require_once 'view/vwfooter.php'; ?>
 </body>

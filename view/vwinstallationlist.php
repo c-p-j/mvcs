@@ -18,8 +18,11 @@
     <table id="installations" class="display table table-striped table-bordered">
         <thead>
             <tr>
+                <th>Delete</th>
+                <th>Edit</th>
                 <th>Plant ID</th>
                 <th>Operator</th>
+                <th>Status</th>
                 <th>Date time</th>
             </tr>
         </thead>
@@ -30,14 +33,29 @@
             if (isset($dataset)) {
                 foreach ($dataset as $row) {
                     echo "<tr>";
+                    echo '<td>
+                            <form action="index.php?controller=ctrlinstallation&action=deleteinstallation" class="my-auto" method="post">
+                                <input type="hidden" name="wherePlant" value="' . $row->getPlantId() . '">
+                                <input type="hidden" name="whereOperator" value="' . $row->getOperatorId() . '">
+                                <button type="submit" class="btn btn-border border-danger">Delete</button>
+                            </form>
+                        </td>';
+                    echo '<td><form action="index.php?controller=ctrlinstallation&action=updateinstallation" class="my-auto" method="post">
+            <input type="hidden" name="defaultDateTime" value ="' . $row->getDateTime() . '">
+            <input type="hidden" name="previousplant" value ="' . $row->getPlantId() . '">
+            <input type="hidden" name="previousstatus" value ="' . $row->getStatus() . '">
+            <input type="hidden" name="previousoperator" value ="' . $row->getOperatorId() . '">
+            <button type="submit" class="btn btn-border border-secondary">Edit</button>
+            </form></td>';
                     echo "<td>" . $row->getPlantId() . "</td>";
                     echo "<td>" . $row->getOperatorId() . "</td>";
+                    echo "<td>" . $row->getStatus() . "</td>";
                     echo "<td>" . $row->getDateTime() . "</td>";
                     echo "</tr>";
                 }
             }
             ?>
-            <tr>
+            <!-- <tr>
                 <td colspan="6">
                     <div class="container-full h100 text-center">
                         <form action="index.php?controller=ctrlinstallation&action=insertinstallation" class="my-auto" method="post">
@@ -45,10 +63,20 @@
                         </form>
                     </div>
                 </td>
-            </tr>
+            </tr> -->
         </tbody>
     </table>
 </div>
+
+<div class="container-full mb-4">
+    <div class="mx-auto h100 text-center">
+        <form action="index.php?controller=ctrlinstallation&action=insertinstallation" class="my-auto" method="post">
+            <button type="submit" class="btn btn-primary">New</button>
+        </form>
+    </div>
+</div>
+</div>
+
 <script>
     $(document).ready(function() {
         $('#installations').DataTable({

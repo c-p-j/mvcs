@@ -4,17 +4,18 @@ require 'vwheader.php';
 ?>
 
 <div class="container border border-muted mx-auto my-3 w-50 text-center" style="border: 3px solid black;">
-    <h1 class=" my-4">Insert Plant</h1>
+    <h1 class=" my-4">Update Apartment</h1>
     <div class="row mx-auto">
         <div class="col form-group text-center">
 
-            <form action="/mvcs/index.php?controller=ctrlplant&action=insertplant" method="POST">
+            <form action="/mvcs/index.php?controller=ctrlplant&action=updateplant" method="POST">
+
                 <input type="text" name="name" placeholder="Name" class="form-control mx-auto">
                 <br>
                 select status:
                 <select name="status" placeholder="status" class="form-control mx-auto">
-                    <option value="1">Operational</option>
-                    <option value="0">Not Operational</option>
+                    <option value="true">Operational</option>
+                    <option value="false">Not Operational</option>
                 </select>
                 <br>
 
@@ -64,7 +65,7 @@ require 'vwheader.php';
                 </select>
 
                 <br>
-                <!-- <input type="hidden" name="active_sensors" value="0"> -->
+                <input type="hidden" name="plant_id" value='<?php echo $_POST['where']; ?>'>
 
                 <input type="submit" name="subbtn" class="btn btn-primary" value="Submit">
             </form>
@@ -72,7 +73,8 @@ require 'vwheader.php';
         </div>
 
         <div class="col ">
-            <i class="fa fa-industry fa-border fa-5x" aria-hidden="true" > </i>
+            <i class="fa fa-industry fa-border fa-5x" aria-hidden="true"> </i>
+            <p class="text-danger text-center">Changing the primary key is not allowed</p>
         </div>
     </div>
 </div>

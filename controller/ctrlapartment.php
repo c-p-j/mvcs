@@ -1,6 +1,9 @@
 <?php
 require_once 'dataobject/doapartment.php';
 
+/**
+ * [Class ctrlapartment]
+ */
 class ctrlapartment
 {
 
@@ -57,6 +60,27 @@ class ctrlapartment
             require_once 'view/vwapartmentinserted.php';
         } else {
             require_once 'view/insertapartment.php';
+        }
+    }
+
+    public function updateapartment()
+    {
+        // $row = new dataobjPlant($row['plant_id'], $row['status'], $row['name'], $row['NOR'], $row['model_name'], $row['apartment_code'], $row['active_sensors']);
+        // $plant = new modelPlant();
+        // $count = $plant->insert($row);
+        // require_once 'view/vwplantinserted.php';
+        require_once 'model/moapartment.php';
+
+        if (isset($_POST['apartment_code'])) {
+            // $row = new dataobjApartment($_POST['code'], $_POST['address'], $_POST['active_implants']);
+            $fields = array('apartment_code'=> $_POST['apartment_code'],'address' => $_POST['address']);
+            // if(isset($_POST['address']))
+                // $fields->array_push('address' => $_POST['address']);
+            $apartment = new modelApartment();
+            $count = $apartment->update($fields);
+            require_once 'view/vwapartmentinserted.php';
+        } else { 
+            require_once 'view/updateapartment.php';
         }
     }
 

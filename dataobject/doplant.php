@@ -1,4 +1,8 @@
 <?php
+
+/**
+ * [Class dataobjPlant] represents the data object of a plant 
+ */
 class dataobjPlant
 {
     public function __construct($plant_id, $status, $name, $NOR, $model_name, $apartment_code, $active_sensors)

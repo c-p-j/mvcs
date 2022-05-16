@@ -72,6 +72,29 @@ class ctrlPlant
         }
     }
 
+    public function updateplant()
+    {
+        // $row = new dataobjPlant($row['plant_id'], $row['status'], $row['name'], $row['NOR'], $row['model_name'], $row['apartment_code'], $row['active_sensors']);
+        // $plant = new modelPlant();
+        // $count = $plant->insert($row);
+        // require_once 'view/vwplantinserted.php';
+        require_once 'model/moplant.php';
+
+        if (isset($_POST['plant_id'])) {
+            // $row = new dataobjApartment($_POST['code'], $_POST['address'], $_POST['active_implants']);
+            $fields = array('plant_id' => $_POST['plant_id'], 'status' => $_POST['status'], 'name' => $_POST['name'], 'NOR' => $_POST['NOR'], 'model_name' => $_POST['model_name'], 'apartment_code' => $_POST['apartment_code']);            
+            // if(isset($_POST['address']))
+                // $fields->array_push('address' => $_POST['address']);
+            $plant = new modelPlant();
+            $count = $plant->update($fields);
+            require_once 'view/vwplantupdated.php';
+        } else { 
+            require_once 'model/moapartment.php';
+            require_once 'model/moplantmodel.php';
+            require_once 'view/updateplant.php';
+        }
+    }
+
     public function deleteplant()
     {
         require_once 'model/moplant.php';
@@ -87,4 +110,6 @@ class ctrlPlant
         $count = $plant->delete($where);
         require_once 'view/vwplantdeleted.php';
     }
+
+    
 }

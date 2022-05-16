@@ -18,6 +18,7 @@
     <thead>
         <tr>
             <th>Delete</th>
+            <th>Edit</th>
             <th>Serial Number</th>
             <th>Status</th>
             <th>NOR</th>
@@ -32,10 +33,19 @@
         if (isset($dataset)) {
             foreach ($dataset as $row) {
                 echo "<tr>";
-                echo '<td> <form action="index.php?controller=ctrlsensor&action=deletesensor" method="POST">
-                <input type="hidden" name="where" value=' . $row->getSensorSN() . '">
+                echo '<td> 
+                <div class="d-inline"><form action="index.php?controller=ctrlsensor&action=deletesensor" method="POST">
+                <input type="hidden" name="where" value="' . $row->getSensorSN() . '">
                 <button type="submit" class="btn border border-danger">Delete</button>
-            </form></td>';
+            </form></td>
+            <td>
+            <form action="index.php?controller=ctrlsensor&action=updatesensor" method="POST">
+            <input type="hidden" name="previoussn" value="' . $row->getSensorSN() . '">
+            <input type="hidden" name="previousplant" value=' . $row->getPlantId() . '>
+            <input type="hidden" name="previousmodel" value="' . $row->getModelName() . '">
+            <button type="submit" class="btn btn_secondary border border-secondary">Edit</button>
+        </form></div>
+        </td>';
                 echo "<td>" . $row->getSensorSN() . "</td>";
                 echo "<td>" . $row->getStatus() . "</td>";
                 echo "<td>" . $row->getNOR() . "</td>";
@@ -45,17 +55,16 @@
             }
         }
         ?>
-        <tr>
-            <td colspan="6">
-                <div class="container-full h100 text-center">
-                    <form action="index.php?controller=ctrlsensor&action=insertsensor" class="my-auto" method="post">
-                        <button type="submit" class="btn btn-primary">New</button>
-                    </form>
-                </div>
-            </td>
-        </tr>
     </tbody>
 </table>
+
+
+<div class="container mb-4 mx-auto text-center">
+    <form action="index.php?controller=ctrlsensor&action=insertsensor" class="my-auto" method="post">
+        <input type="hidden" name="previous" value="<?php echo ($_POST['where']) ?>" />
+        <button type="submit" class="btn btn-primary">New</button>
+    </form>
+</div>
 
 
 </div>

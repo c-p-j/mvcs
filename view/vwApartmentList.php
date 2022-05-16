@@ -26,6 +26,10 @@
                                         <input type="hidden" name="where" value="<?php echo $row->getApartmentCode() ?>">
                                         <button type="submit" class="btn btn-primary">Show plants</button>
                                     </form>
+                                    <form action="index.php?controller=ctrlapartment&action=updateapartment" method="POST">
+                                        <input type="hidden" name="where" value="<?php echo $row->getApartmentCode() ?>">
+                                        <button type="submit" class="btn btn-secondary">Edit</button>
+                                    </form>
                                     <form action="index.php?controller=ctrlapartment&action=deleteapartment" method="POST">
                                         <input type="hidden" name="where" value="<?php echo $row->getApartmentCode() ?>">
                                         <button type="submit" class="btn btn-danger">Delete</button>
@@ -46,6 +50,10 @@
                                     <form action="index.php?controller=ctrlplant&action=viewplant" method="POST">
                                         <input type="hidden" name="where" value="<?php echo $row->getApartmentCode() ?>">
                                         <button type="submit" class="btn btn-primary">Show plants</button>
+                                    </form>
+                                    <form action="index.php?controller=ctrlapartment&action=updateapartment" method="POST">
+                                        <input type="hidden" name="where" value="<?php echo $row->getApartmentCode() ?>">
+                                        <button type="submit" class="btn btn-secondary">Edit</button>
                                     </form>
                                     <form action="index.php?controller=ctrlapartment&action=deleteapartment" method="POST">
                                         <input type="hidden" name="where" value="<?php echo $row->getApartmentCode() ?>">
@@ -69,6 +77,10 @@
                                     <input type="hidden" name="where" value="<?php echo $row->getApartmentCode() ?>">
                                     <button type="submit" class="btn btn-primary">Show plants</button>
                                 </form>
+                                <form action="index.php?controller=ctrlapartment&action=updateapartment" method="POST">
+                                        <input type="hidden" name="where" value="<?php echo $row->getApartmentCode() ?>">
+                                        <button type="submit" class="btn btn-secondary">Edit</button>
+                                    </form>
                                 <form action="index.php?controller=ctrlapartment&action=deleteapartment" method="POST">
                                     <input type="hidden" name="where" value="<?php echo $row->getApartmentCode() ?>">
                                     <button type="submit" class="btn btn-danger">Delete</button>

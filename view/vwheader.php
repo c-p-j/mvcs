@@ -13,6 +13,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
     <link rel="stylesheet" href="http://localhost/mvcs/css/bootstrap.min.css">
+    <link rel="stylesheet" href="http://localhost/mvcs/css/style.css">
 
 
     <!-- <link rel="canonical" href="https://getbootstrap.com/docs/4.6/components/dropdowns/">

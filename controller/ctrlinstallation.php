@@ -1,6 +1,9 @@
 <?php
 require_once 'dataobject/doinstallation.php';
 
+/**
+ * [Class ctrlinstallation]
+ */
 class ctrlinstallation
 {
 
@@ -37,6 +40,9 @@ class ctrlinstallation
     //     require_once 'view/vwinstallationlist.php';
     // }
 
+    /**
+     * Function used to retrieve all installations
+     */
     public function viewinstallationall()
     {
         require_once 'model/moinstallation.php';
@@ -45,22 +51,16 @@ class ctrlinstallation
         require_once 'view/vwinstallationlist.php';
     }
 
+    /**
+     * Function used to insert a certain installation
+     */
     public function insertinstallation()
     {
         require_once 'model/moinstallation.php';
-        // $row = new dataobjInstallation($_POST['code'], $_POST['name'], $_POST['surname']);
-        // $installation = new modelInstallation();
-        // $count = $installation->insert($row);
-        // require_once 'view/vwinstallationinserted.php';
-        // require_once 'model/mooperator.php';
-        // $row = new dataobjOperator($_POST['code'], $_POST['name'], $_POST['surname']);
-        // $operator = new modeloperator();
-        // $count = $operator->insert($row);
-        // require_once 'model/moplant.php';
 
-        if (isset($_POST['datetime'], $_POST['plant_id'], $_POST['operator_id'])) {
+        if (isset($_POST['datetime'], $_POST['plant_id'], $_POST['operator_id'], $_POST['status'])) {
 
-            $row = new dataobjInstallation($_POST['datetime'], $_POST['plant_id'], $_POST['operator_id']);
+            $row = new dataobjInstallation($_POST['datetime'], $_POST['plant_id'], $_POST['operator_id'], $_POST['status']);
             $installation = new modelInstallation();
             $count = $installation->insert($row);
             require_once 'view/vwinstallationinserted.php';
@@ -68,6 +68,53 @@ class ctrlinstallation
             require_once 'model/moplant.php';
             require_once 'model/mooperator.php';
             require_once 'view/insertinstallation.php';
+        }
+    }
+
+    /**
+     * Function used to delete a certain installation
+     */
+    public function deleteinstallation()
+    {
+        require_once 'model/moinstallation.php';
+
+        if (isset($_POST['wherePlant'], $_POST['whereOperator'])) {
+            $where = array('plant_id' => $_POST['wherePlant'], 'operator_id' => $_POST['whereOperator']); // expected given parameters
+        } else {
+            $where = [];
+            require_once 'view/error.php';
+            return;
+        };
+
+        var_dump($where);
+        $installationModel = new modelInstallation();
+        $installation = $installationModel->select($where, []);
+        var_dump($installation);
+        $count = 0;
+
+        if ($installation[0]->getStatus() === "Pending") // works with one row only
+            $count = $installationModel->delete($where); // deletion of the installation via a query
+        require_once 'view/vwinstallationdeleted.php';
+    }
+
+    /**
+     * Function used to update a certain installation
+     */
+    public function updateinstallation()
+    {
+        require_once 'model/moinstallation.php';
+
+        if (isset($_POST['plant_id'], $_POST['operator_id'])) {
+            $fields = array('plant_id' => (int)$_POST['plant_id'], 'operator_id' => (int)$_POST['operator_id'], 'status' => $_POST['status'], 'datetime' => $_POST['datetime']); // array with the fields that are going to be updated
+
+            var_dump($fields);
+            $installation = new modelInstallation();
+            $count = $installation->update($fields);  // updates the fields via a query
+            require_once 'view/vwinstallationupdated.php';
+        } else {
+            require_once 'model/moplant.php';
+            require_once 'model/mooperator.php';
+            require_once 'view/updateinstallation.php'; // runs the update page
         }
     }
 }

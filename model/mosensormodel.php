@@ -41,26 +41,31 @@ class modelSensorModel
         if (isset($where) && count($where) > 0) {
             $sqlText .= " WHERE ";
             foreach ($where as $key => $value) {
-                $sqlText .= $key . ' = "' . $value;
+                $sqlText .= $key . " = :" . $key;
             }
         } else {
             return 0;
         }
 
-        // var_dump($sqlText);
-
+        var_dump($sqlText);
         $connection = Database::getConnection();
         $connection->beginTransaction();
 
         try {
             $sql = $connection->prepare($sqlText);
-            $result = $sql->execute();
+            //        var_dump ($result);
+            // $sql->setFetchMode(PDO::FETCH_ASSOC);
+            if (isset($where) && count($where) > 0)
+                $result = $sql->execute($where);
+            else $result = $sql->execute();
             $connection->commit();
+            // primo modo   return $result;
+            // var_dump($result);
             return $result;
         } catch (PDOException $e) {
+            // roll back the transaction if something failed
             $connection->rollback();
-            echo "Error delete: " . $sqlText . " " . $e->getMessage();
-            return 0;
+            // echo "Error select: " . $sqlText. " ". $e->getMessage();
         }
     }
     // -----------------------------------------------------------------------------------------------------

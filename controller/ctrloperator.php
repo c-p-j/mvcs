@@ -68,7 +68,7 @@ class ctrloperator
 
     public function deleteoperator()
     {
-        require_once 'model/moapartment.php';
+        require_once 'model/mooperator.php';
 
         if (isset($_POST['where'])) {
             $where = array('operator_id' => $_POST['where']);
@@ -79,8 +79,32 @@ class ctrloperator
         };
 
         // $row = new dataobjApartment($_POST['code'], $_POST['address']);
-        $operator = new modelApartment();
-        $count = $apartment->delete($where);
+        $operator = new modeloperator();
+        $count = $operator->delete($where);
         // require_once 'view/vwaoperatordeleted.php'; //TODO: modifica
+    }
+
+
+    public function updateoperator()
+    {
+        // $row = new dataobjPlant($row['plant_id'], $row['status'], $row['name'], $row['NOR'], $row['model_name'], $row['apartment_code'], $row['active_sensors']);
+        // $plant = new modelPlant();
+        // $count = $plant->insert($row);
+        // require_once 'view/vwplantinserted.php';
+        require_once 'model/mooperator.php';
+
+        if (isset($_POST['operator_id'])) {
+            // $row = new dataobjApartment($_POST['code'], $_POST['address'], $_POST['active_implants']);
+            $fields = array(
+                'operator_id' => $_POST['operator_id'],
+                'name' => $_POST['name'],
+                'surname' => $_POST['surname']
+            );
+            $apartment = new modelOperator();
+            $count = $apartment->update($fields);
+            require_once 'view/vwapartmentinserted.php';
+        } else {
+            require_once 'view/updateoperator.php';
+        }
     }
 }
