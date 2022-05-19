@@ -15,20 +15,23 @@
     <link rel="stylesheet" href="http://localhost/mvcs/css/bootstrap.min.css">
     <link rel="stylesheet" href="http://localhost/mvcs/css/style.css">
 
+    <script type="text/javascript" src="//code.jquery.com/jquery-1.10.2.min.js"></script>
+    <script type="text/javascript" src="https://s3.amazonaws.com/codecademy-content/courses/hour-of-code/js/alphabet.js"></script>
+
 
     <!-- <link rel="canonical" href="https://getbootstrap.com/docs/4.6/components/dropdowns/">
     <link rel="stylesheet" href="https://getbootstrap.com/docs/4.6/dist/css/bootstrap.min.css"> -->
 </head>
 
-<body>
+<body id="body-wrapper">
     <nav class="navbar navbar-dark navbar-expand-lg fixed-top bg-white portfolio-navbar gradient">
-        <div class="container"><a class="navbar-brand logo" href="/mvcs/index.php">MVC Sensors</a><button class="navbar-toggler" data-toggle="collapse" data-target="#navbarNav"><span class="sr-only">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
+        <div class="container"><a class="navbar-brand logo" href="/mvcs/index.php">MVCS</a><button class="navbar-toggler" data-toggle="collapse" data-target="#navbarNav"><span class="sr-only">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
             <div id="navbarNav" class="collapse navbar-collapse">
                 <ul class="navbar-nav ml-auto">
                     <li class="nav-item"></li>
                     <li class="nav-item"></li>
-                    <li class="nav-item"><a class="nav-link" href="#">Work with us</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#">About</a></li>
+                    <li class="nav-item"><a class="nav-link" href="index.php?logout=true">Logout</a></li>
+                    <li class="nav-item"><a class="nav-link" href="view/profile.php"><?php echo(isset($_SESSION["username"]) ? $_SESSION["username"] : "Profile"); ?></a></li>
                 </ul>
             </div>
         </div>

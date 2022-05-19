@@ -20,11 +20,14 @@ class ctrlPlantModel
         } else {
             $where = [];
             $orderBy = [];
-            // require_once 'view/errorpage.php';
+            // require_once 'view/plantmodel/errorpage.php';
             // return;
         };
-        var_dump($_GET);
-        var_dump($_POST);
+
+        if (isset($_GET['id'])) {
+            $where = array('model_name' => $_GET['id']);
+            $orderBy = array('name' => 'asc');
+        }
 
         if (isset($_POST['order'])) {
             if ($_POST['order'] == 'model_name') {
@@ -40,7 +43,7 @@ class ctrlPlantModel
         require_once 'model/moplantmodel.php';
         $plantmodel = new modelPlantModel();
         $dataset = $plantmodel->select($where, $orderBy);
-        require_once 'view/vwplantmodellist.php';
+        require_once 'view/plantmodel/vwplantmodellist.php';
     }
 
     public function viewplantmodelall()
@@ -48,7 +51,7 @@ class ctrlPlantModel
         require_once 'model/moplantmodel.php';
         $plantmodel = new modelPlantModel();
         $dataset = $plantmodel->select([], []);
-        require_once 'view/vwplantmodellist.php';
+        require_once 'view/plantmodel/vwplantmodellist.php';
     }
 
     public function insertplantmodel()
@@ -57,7 +60,7 @@ class ctrlPlantModel
         // $row = new dataobjplantModel($row['model_name']);
         // $plantmodel = new modelPlantModel();
         // $count = $plantmodel->insert($row);
-        // require_once 'view/vwplantmodelinserted.php';
+        // require_once 'view/plantmodel/vwplantmodelinserted.php';
         // require_once 'model/moplant.php';
 
         if (isset($_POST['model_name'])) {
@@ -65,9 +68,9 @@ class ctrlPlantModel
             $row = new dataobjPlantModel($_POST['model_name']);
             $plant = new modelPlantModel();
             $count = $plant->insert($row);
-            require_once 'view/vwplantmodelinserted.php';
+            require_once 'view/plantmodel/vwplantmodelinserted.php';
         }else{
-            require_once 'view/insertplantmodel.php';
+            require_once 'view/plantmodel/insertplantmodel.php';
         }
     }
 
@@ -86,6 +89,6 @@ class ctrlPlantModel
         // $row = new dataobjplantmodel($_POST['code'], $_POST['address']);
         $plantmodel = new modelPlantModel();
         $count = $plantmodel->delete($where);
-        require_once 'view/vwplantmodeldeleted.php';
+        require_once 'view/plantmodel/vwplantmodeldeleted.php';
     }
 }

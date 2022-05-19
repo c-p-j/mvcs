@@ -1,5 +1,5 @@
 <?php
-require_once "vwheader.php";
+require_once "view/vwheader.php";
 ?>
 
 <div class="page text-center">
@@ -10,5 +10,5 @@ require_once "vwheader.php";
 </div>
 </div>
 <?php
-require_once "vwfooter.php";
+require_once "view/vwfooter.php";
 ?>

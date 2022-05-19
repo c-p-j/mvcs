@@ -34,7 +34,7 @@ CREATE TABLE SensorModel
 CREATE TABLE Plant
 (
   plant_id INT AUTO_INCREMENT,
-  status BOOL NOT NULL,
+  status BOOLEAN NOT NULL,
   name VARCHAR(30) NOT NULL,
   NOR VARCHAR(500),
   model_name VARCHAR(50) NOT NULL,
@@ -44,7 +44,7 @@ CREATE TABLE Plant
   FOREIGN KEY (model_name) REFERENCES PlantModel(model_name) ON UPDATE CASCADE ON DELETE RESTRICT,
   FOREIGN KEY (apartment_code) REFERENCES Apartment(apartment_code) ON UPDATE CASCADE ON DELETE RESTRICT,
   UNIQUE(name),
-  CHECK(active = ISNULL(NOR)),
+  CHECK(status = ISNULL(NOR)),
   CHECK(active_sensors >= 0)
 );
 
@@ -63,13 +63,23 @@ CREATE TABLE Installation
 CREATE TABLE Sensor
 (
   sensor_SN VARCHAR(50),
-  status BOOL NOT NULL,
+  status BOOLEAN NOT NULL,
   NOR VARCHAR(500),
   plant_id INT NOT NULL,
   model_name VARCHAR(50) NOT NULL,
   PRIMARY KEY (sensor_SN),
   FOREIGN KEY (plant_id) REFERENCES Plant(plant_id) ON UPDATE CASCADE ON DELETE RESTRICT,
-  FOREIGN KEY (model_name) REFERENCES SensorModel(model_name) ON UPDATE CASCADE ON DELETE RESTRICT
+  FOREIGN KEY (model_name) REFERENCES SensorModel(model_name) ON UPDATE CASCADE ON DELETE RESTRICT,
+  CHECK(status = ISNULL(NOR))
+);
+
+CREATE TABLE Users
+(
+  id INT NOT NULL AUTO_INCREMENT,
+  username VARCHAR(50) NOT NULL,
+  password VARCHAR(256) NOT NULL,
+  type INT NOT NULL DEFAULT 0, -- permissions as a number
+  PRIMARY KEY (id)
 );
 
 CREATE OR REPLACE TRIGGER FillActiveImplantsInsert AFTER INSERT  

@@ -20,9 +20,15 @@ class ctrlsensor
         } else {
             $where = [];
             $orderBy = [];
-            // require_once 'view/errorpage.php';
+            // require_once 'view/sensor/errorpage.php';
             // return;
         };
+
+        if (isset($_GET['id'])) {
+            $where = array('sensorSN' => $_GET['id']);
+            $orderBy = array('name' => 'asc');
+        }
+
         var_dump($_GET);
         var_dump($_POST);
 
@@ -40,7 +46,7 @@ class ctrlsensor
         require_once 'model/mosensor.php';
         $sensor = new modelSensor();
         $dataset = $sensor->select($where, $orderBy);
-        require_once 'view/vwsensorlist.php';
+        require_once 'view/sensor/vwsensorlist.php';
     }
 
     public function viewsensorall()
@@ -48,7 +54,7 @@ class ctrlsensor
         require_once 'model/mosensor.php';
         $sensor = new modelSensor();
         $dataset = $sensor->select([], []);
-        require_once 'view/vwsensorlist.php';
+        require_once 'view/sensor/vwsensorlist.php';
     }
 
     public function insertsensor()
@@ -57,7 +63,7 @@ class ctrlsensor
         // $row = new dataobjSensor($row['sensor_SN'], $row['status'], $row['NOR'], $row['plant_id'], $row['model_name']);
         // $sensor = new modelSensor();
         // $count = $sensor->insert($row);
-        // require_once 'view/vwsensorinserted.php';
+        // require_once 'view/sensor/vwsensorinserted.php';
         // require_once 'model/moplant.php';
 
         if (isset($_POST['sensor_SN'], $_POST['status'], $_POST['NOR'], $_POST['plant_id'], $_POST['model_name'])) {
@@ -67,11 +73,11 @@ class ctrlsensor
             $row = new dataobjSensor($_POST['sensor_SN'], $_POST['status'], $_POST['NOR'], $_POST['plant_id'], $_POST['model_name']);
             $plant = new modelSensor();
             $count = $plant->insert($row);
-            require_once 'view/vwsensorinserted.php';
+            require_once 'view/sensor/vwsensorinserted.php';
         } else {
             require_once 'model/moplant.php';
             require_once 'model/mosensormodel.php';
-            require_once 'view/insertsensor.php';
+            require_once 'view/sensor/insertsensor.php';
         }
     }
 
@@ -90,7 +96,7 @@ class ctrlsensor
         // $row = new dataobjsensor($_POST['code'], $_POST['address']);
         $sensor = new modelSensor();
         $count = $sensor->delete($where);
-        require_once 'view/vwsensordeleted.php';
+        require_once 'view/sensor/vwsensordeleted.php';
     }
 
 
@@ -99,7 +105,7 @@ class ctrlsensor
         // $row = new dataobjPlant($row['plant_id'], $row['status'], $row['name'], $row['NOR'], $row['model_name'], $row['apartment_code'], $row['active_sensors']);
         // $plant = new modelPlant();
         // $count = $plant->insert($row);
-        // require_once 'view/vwplantinserted.php';
+        // require_once 'view/sensor/vwplantinserted.php';
         require_once 'model/mosensor.php';
 
         if (isset($_POST['sensor_SN'])) {
@@ -116,11 +122,11 @@ class ctrlsensor
             // $fields->array_push('address' => $_POST['address']);
             $sensor = new modelSensor();
             $count = $sensor->update($fields);
-            require_once 'view/vwsensorupdated.php';
+            require_once 'view/sensor/vwsensorupdated.php';
         } else {
             require_once 'model/moplant.php';
             require_once 'model/mosensormodel.php';
-            require_once 'view/updatesensor.php';
+            require_once 'view/sensor/updatesensor.php';
         }
     }
 }

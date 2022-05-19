@@ -37,7 +37,7 @@ class ctrlinstallation
     //     require_once 'model/moinstallation.php';
     //     $installation = new modelinstallation();
     //     $dataset = $installation->select($where, $orderBy);
-    //     require_once 'view/vwinstallationlist.php';
+    //     require_once 'view/installation/vwinstallationlist.php';
     // }
 
     /**
@@ -48,7 +48,7 @@ class ctrlinstallation
         require_once 'model/moinstallation.php';
         $installation = new modelInstallation();
         $dataset = $installation->select([], []);
-        require_once 'view/vwinstallationlist.php';
+        require_once 'view/installation/vwinstallationlist.php';
     }
 
     /**
@@ -63,11 +63,11 @@ class ctrlinstallation
             $row = new dataobjInstallation($_POST['datetime'], $_POST['plant_id'], $_POST['operator_id'], $_POST['status']);
             $installation = new modelInstallation();
             $count = $installation->insert($row);
-            require_once 'view/vwinstallationinserted.php';
+            require_once 'view/installation/vwinstallationinserted.php';
         } else {
             require_once 'model/moplant.php';
             require_once 'model/mooperator.php';
-            require_once 'view/insertinstallation.php';
+            require_once 'view/installation/insertinstallation.php';
         }
     }
 
@@ -94,7 +94,7 @@ class ctrlinstallation
 
         if ($installation[0]->getStatus() === "Pending") // works with one row only
             $count = $installationModel->delete($where); // deletion of the installation via a query
-        require_once 'view/vwinstallationdeleted.php';
+        require_once 'view/installation/vwinstallationdeleted.php';
     }
 
     /**
@@ -110,11 +110,11 @@ class ctrlinstallation
             var_dump($fields);
             $installation = new modelInstallation();
             $count = $installation->update($fields);  // updates the fields via a query
-            require_once 'view/vwinstallationupdated.php';
+            require_once 'view/installation/vwinstallationupdated.php';
         } else {
             require_once 'model/moplant.php';
             require_once 'model/mooperator.php';
-            require_once 'view/updateinstallation.php'; // runs the update page
+            require_once 'view/installation/updateinstallation.php'; // runs the update page
         }
     }
 }

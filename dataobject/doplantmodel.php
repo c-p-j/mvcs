@@ -1,4 +1,5 @@
 <?php
+
 class dataobjPlantModel
 {
     public function __construct($model_name)

@@ -14,8 +14,12 @@ class ctrloperator
             $where = [];
             $orderBy = [];
         };
-        var_dump($_GET);
-        var_dump($_POST);
+
+        
+        if (isset($_GET['id'])) {
+            $where = array('operator_id' => $_GET['id']);
+            $orderBy = array('name' => 'asc');
+        }
 
         if (isset($_POST['order'])) {
             if ($_POST['order'] == 'operator_id') {
@@ -34,7 +38,7 @@ class ctrloperator
         require_once 'model/mooperator.php';
         $operator = new modeloperator();
         $dataset = $operator->select($where, $orderBy);
-        require_once 'view/vwoperatorlist.php';
+        require_once 'view/operator/vwoperatorlist.php';
     }
 
     public function viewoperatorall()
@@ -42,7 +46,7 @@ class ctrloperator
         require_once 'model/mooperator.php';
         $operator = new modeloperator();
         $dataset = $operator->select([], []);
-        require_once 'view/vwoperatorlist.php';
+        require_once 'view/operator/vwoperatorlist.php';
     }
 
     public function insertoperator()
@@ -58,11 +62,11 @@ class ctrloperator
             $row = new dataobjOperator(NULL, $_POST['name'], $_POST['surname']);
             $operator = new modeloperator();
             $count = $operator->insert($row);
-            require_once 'view/vwoperatorinserted.php';
+            require_once 'view/operator/vwoperatorinserted.php';
         } else {
             // require_once 'model/moapartment.php';
             // require_once 'model/moplantmodel.php';
-            require_once 'view/insertoperator.php';
+            require_once 'view/operator/insertoperator.php';
         }
     }
 
@@ -81,7 +85,7 @@ class ctrloperator
         // $row = new dataobjApartment($_POST['code'], $_POST['address']);
         $operator = new modeloperator();
         $count = $operator->delete($where);
-        // require_once 'view/vwaoperatordeleted.php'; //TODO: modifica
+        // require_once 'view/operator/vwaoperatordeleted.php'; //TODO: modifica
     }
 
 
@@ -90,7 +94,7 @@ class ctrloperator
         // $row = new dataobjPlant($row['plant_id'], $row['status'], $row['name'], $row['NOR'], $row['model_name'], $row['apartment_code'], $row['active_sensors']);
         // $plant = new modelPlant();
         // $count = $plant->insert($row);
-        // require_once 'view/vwplantinserted.php';
+        // require_once 'view/operator/vwplantinserted.php';
         require_once 'model/mooperator.php';
 
         if (isset($_POST['operator_id'])) {
@@ -102,9 +106,11 @@ class ctrloperator
             );
             $apartment = new modelOperator();
             $count = $apartment->update($fields);
-            require_once 'view/vwapartmentinserted.php';
+            require_once 'view/operator/vwapartmentinserted.php';
         } else {
-            require_once 'view/updateoperator.php';
+            // require 'E:\xampp\htdocs\mvcs\view\vwheader.php';
+
+            require_once 'view/operator/updateoperator.php';
         }
     }
 }

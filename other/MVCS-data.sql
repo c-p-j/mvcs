@@ -21,3 +21,7 @@ LOAD DATA LOCAL INFILE 'E:\\xampp\\htdocs\\mvcs\\other\\mvcs.plants.csv'
 LOAD DATA LOCAL INFILE 'E:\\xampp\\htdocs\\mvcs\\other\\mvcs.sensors.csv'
     INTO TABLE sensor
     FIELDS TERMINATED BY ',' OPTIONALLY ENCLOSED BY '"' ESCAPED BY '\\' LINES TERMINATED BY '\r\n';
+
+LOAD DATA LOCAL INFILE 'E:\\xampp\\htdocs\\mvcs\\other\\mvcs.users.csv'
+    INTO TABLE users
+    FIELDS TERMINATED BY ',' OPTIONALLY ENCLOSED BY '"' ESCAPED BY '\\' LINES TERMINATED BY '\r\n';

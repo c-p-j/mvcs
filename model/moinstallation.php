@@ -58,7 +58,7 @@ class modelInstallation
 
 
         $sqlText .= " WHERE operator_id = :operator_id AND plant_id = :plant_id";
-        var_dump($sqlText);
+        // var_dump($sqlText);
         $connection = Database::getConnection();
         $connection->beginTransaction();
         try {
@@ -127,7 +127,7 @@ class modelInstallation
     // -----------------------------------------------------------------------------------------------------
     public static function select($where, $orderBy)
     {
-        $sqlText = "SELECT * FROM installation ";
+        $sqlText = "SELECT dateTime, p.plant_id as plant_id, o.operator_id as operator_id, p.name as plant_name, concat(o.name, ' ', o.surname) as operator_name, installation.status as status FROM operator o join installation using(operator_id) join plant p using(plant_id);";
 
 
         if (isset($where) && count($where) > 0) {
@@ -141,7 +141,7 @@ class modelInstallation
                         $sqlText .= $key . " = :" . $key . ' AND ';
             }
         }
-        var_dump($sqlText);
+        // var_dump($sqlText);
         if (isset($orderBy) && count($orderBy) > 0) {
             $sqlText .= " ORDER BY ";
             foreach ($orderBy as $key => $value) {
@@ -154,25 +154,26 @@ class modelInstallation
         $connection->beginTransaction();
         try {
             $sql = $connection->prepare($sqlText);
-            //        var_dump ($result);
             $sql->setFetchMode(PDO::FETCH_ASSOC);
             if (isset($where) && count($where) > 0)
                 $sql->execute($where);
             else $sql->execute();
             $result = $sql->fetchAll();
-            $connection->commit();
+            // $connection->commit();
             // primo modo   return $result;
+                   var_dump ($result);
 
             $dataset = array();
             foreach ($result as $row) {
-                array_push($dataset, new dataobjInstallation($row['dateTime'], $row['plant_id'], $row['operator_id'], $row['status']));
+                array_push($dataset, dataobjInstallation::withName($row['dateTime'], $row['plant_id'], $row['operator_id'], $row['plant_name'], $row['operator_name'], $row['status']));
                 // array_push($dataset, new dataobjInstallation($row['dateTime'],$row['implant'],$row['operator']));
             }
+            var_dump($dataset);
             return $dataset;
         } catch (PDOException $e) {
             // roll back the transaction if something failed
-            $connection->rollback();
-            // echo "Error select: " . $sqlText. " ". $e->getMessage();
+            // $connection->rollback();
+            echo "Error select: " . $sqlText. " ". $e->getMessage();
         }
     }
 }

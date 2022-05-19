@@ -20,6 +20,11 @@ class ctrlapartment
         // var_dump($_GET);
         // var_dump($_POST);
 
+        if (isset($_GET['id'])) {
+            $where = array('apartment_code' => $_GET['id']);
+            $orderBy = array('name' => 'asc');
+        }
+
         if (isset($_POST['order'])) {
             if ($_POST['order'] == 'apartment_code') {
                 $orderBy = array('apartment_code' => 'asc');
@@ -34,7 +39,7 @@ class ctrlapartment
         require_once 'model/moapartment.php';
         $apartment = new modelApartment();
         $dataset = $apartment->select($where, $orderBy);
-        require_once 'view/vwapartmentlist.php';
+        require_once 'view/apartment/vwapartmentlist.php';
     }
 
     public function viewapartmentall()
@@ -42,7 +47,7 @@ class ctrlapartment
         require_once 'model/moapartment.php';
         $apartment = new modelApartment();
         $dataset = $apartment->select([], []);
-        require_once 'view/vwapartmentlist.php';
+        require_once 'view/apartment/vwapartmentlist.php';
     }
 
     public function insertapartment()
@@ -50,16 +55,16 @@ class ctrlapartment
         // $row = new dataobjPlant($row['plant_id'], $row['status'], $row['name'], $row['NOR'], $row['model_name'], $row['apartment_code'], $row['active_sensors']);
         // $plant = new modelPlant();
         // $count = $plant->insert($row);
-        // require_once 'view/vwplantinserted.php';
+        // require_once 'view/apartment/vwplantinserted.php';
         require_once 'model/moapartment.php';
 
         if (isset($_POST['code'], $_POST['address'], $_POST['active_implants'])) {
             $row = new dataobjApartment($_POST['code'], $_POST['address'], $_POST['active_implants']);
             $apartment = new modelApartment();
             $count = $apartment->insert($row);
-            require_once 'view/vwapartmentinserted.php';
+            require_once 'view/apartment/vwapartmentinserted.php';
         } else {
-            require_once 'view/insertapartment.php';
+            require_once 'view/apartment/insertapartment.php';
         }
     }
 
@@ -68,7 +73,7 @@ class ctrlapartment
         // $row = new dataobjPlant($row['plant_id'], $row['status'], $row['name'], $row['NOR'], $row['model_name'], $row['apartment_code'], $row['active_sensors']);
         // $plant = new modelPlant();
         // $count = $plant->insert($row);
-        // require_once 'view/vwplantinserted.php';
+        // require_once 'view/apartment/vwplantinserted.php';
         require_once 'model/moapartment.php';
 
         if (isset($_POST['apartment_code'])) {
@@ -78,9 +83,9 @@ class ctrlapartment
                 // $fields->array_push('address' => $_POST['address']);
             $apartment = new modelApartment();
             $count = $apartment->update($fields);
-            require_once 'view/vwapartmentinserted.php';
+            require_once 'view/apartment/vwapartmentinserted.php';
         } else { 
-            require_once 'view/updateapartment.php';
+            require_once 'view/apartment/updateapartment.php';
         }
     }
 
@@ -99,6 +104,6 @@ class ctrlapartment
         // $row = new dataobjApartment($_POST['code'], $_POST['address']);
         $apartment = new modelApartment();
         $count = $apartment->delete($where);
-        require_once 'view/vwapartmentdeleted.php';
+        require_once 'view/apartment/vwapartmentdeleted.php';
     }
 }

@@ -118,7 +118,7 @@ class modelSensor
     // -----------------------------------------------------------------------------------------------------
     public static function select($where, $orderBy)
     {
-        $sqlText = "SELECT * FROM sensor";
+        $sqlText = "SELECT sensor_SN,s.status,s.NOR,p.plant_id,p.name as plant_name, s.model_name FROM sensor s join plant p using(plant_id)";
 
         if (isset($where) && count($where) > 0) {
             $sqlText .= " WHERE ";
@@ -150,13 +150,15 @@ class modelSensor
 
             $dataset = array();
             foreach ($result as $row) {
-                array_push($dataset, new dataobjSensor($row['sensor_SN'], $row['status'], $row['NOR'], $row['plant_id'], $row['model_name']));
+                array_push($dataset, new dataobjSensor($row['sensor_SN'], $row['status'], $row['NOR'], $row['plant_id'], $row['plant_name'], $row['model_name']));
             }
             return $dataset;
         } catch (PDOException $e) {
             // roll back the transaction if something failed
             $connection->rollback();
-            // echo "Error select: " . $sqlText. " ". $e->getMessage();
+            echo "Error select: " . $sqlText. " ". $e->getMessage();
         }
     }
 }
+
+    

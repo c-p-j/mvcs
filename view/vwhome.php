@@ -11,7 +11,7 @@
     }
 </style>
 
-<main class="page lanidng-page">
+<main class="page landing-page" >
     <!-- <div class="container">
         <div class="d-flex justify-content-center align-items-center content">
             <h3>Panels</h3>
@@ -26,39 +26,53 @@
         </div>
     </div> -->
 
-<!-- Main part of the page, containing the buttons -->
+    <!-- Main part of the page, containing the buttons -->
     <section class="portfolio-block skills border-0" style="padding-top: 0px;">
         <div class="container">
             <div class="heading"></div>
             <div class="row">
                 <div class="col-md-4">
                     <div class="card special-skill-item border-0">
-                        <div class="card-header bg-transparent border-0"><a href="index.php?controller=ctrlapartment&action=viewapartmentall"><i class="fa fa-home fa-border fa-4x" aria-hidden="true"></i></a>
-                        </div>
-                        <div class="card-body">
-                            <h3 class="card-title">Apartments</h3>
-                            <p class="card-text">Manage the apartments we're working on.</p>
-                        </div>
+                        <form action="index.php?controller=ctrlapartment&action=viewapartmentall" method="post">
+                            <button class="border-0 bg-white">
+                                <div class="card-header bg-transparent border-0"><i class="fa fa-home fa-border fa-4x text-primary" aria-hidden="true"></i>
+                                </div>
+                                <div class="card-body">
+                                    <h3 class="card-title">Apartments</h3>
+                                    <p class="card-text">Manage the apartments we're working on</p>
+                                </div>
+                            </button>
+                        </form>
                     </div>
+
                 </div>
                 <div class="col-md-4">
                     <div class="card special-skill-item border-0">
-                        <div class="card-header bg-transparent border-0"><a href="index.php?controller=ctrlinstallation&action=viewinstallationall"><i class="fa fa-cogs fa-border fa-4x" aria-hidden="true"></i></a>
-                        </div>
-                        <div class="card-body">
-                            <h3 class="card-title">Installations</h3>
-                            <p class="card-text">View the works carried out and those in progress.</p>
-                        </div>
+                        <form action="index.php?controller=ctrlinstallation&action=viewinstallationall" method="post">
+                            <button class="border-0 bg-white">
+                                <div class="card-header bg-transparent border-0"><i class="fa fa-cogs fa-border fa-4x text-primary" aria-hidden="true"></i>
+                                </div>
+                                <div class="card-body">
+                                    <h3 class="card-title">Installations</h3>
+                                    <p class="card-text">View the works carried out and those in progress</p>
+                                </div>
+                            </button>
+                        </form>
                     </div>
+
                 </div>
                 <div class="col-md-4">
                     <div class="card special-skill-item border-0">
-                        <div class="card-header bg-transparent border-0"><a href="index.php?controller=ctrloperator&action=viewoperatorall"><i class="fa fa-briefcase fa-border fa-4x" aria-hidden="true"></i></a></div>
-                        <div class="card-body">
-                            <h3 class="card-title">Operators</h3>
-                            <p class="card-text">Have a look at our workforce.</p>
-                        </div>
+                        <form action="index.php?controller=ctrloperator&action=viewoperatorall" method="post">
+                            <button class="border-0 bg-white">
+                                <div class="card-header bg-transparent border-0"><i class="fa fa-briefcase fa-border fa-4x text-primary" aria-hidden="true"></i></div>
+                                <div class="card-body">
+                                    <h3 class="card-title">Operators</h3>
+                                    <p class="card-text">Have a look at our workforce</p>
+                                </div>
                     </div>
+                    </button>
+                    </form>
                 </div>
             </div>
         </div>

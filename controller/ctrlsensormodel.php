@@ -20,11 +20,14 @@ class ctrlSensorModel
         } else {
             $where = [];
             $orderBy = [];
-            // require_once 'view/errorpage.php';
+            // require_once 'view/sensormodel/errorpage.php';
             // return;
         };
-        var_dump($_GET);
-        var_dump($_POST);
+
+        if (isset($_GET['id'])) {
+            $where = array('model_name' => $_GET['id']);
+            $orderBy = array('name' => 'asc');
+        }
 
         if (isset($_POST['order'])) {
             if ($_POST['order'] == 'model_name') {
@@ -40,7 +43,7 @@ class ctrlSensorModel
         require_once 'model/mosensormodel.php';
         $sensormodel = new modelSensorModel();
         $dataset = $sensormodel->select($where, $orderBy);
-        require_once 'view/vwsensormodellist.php';
+        require_once 'view/sensormodel/vwsensormodellist.php';
     }
 
     public function viewsensormodelall()
@@ -48,7 +51,7 @@ class ctrlSensorModel
         require_once 'model/mosensormodel.php';
         $sensormodel = new modelSensorModel();
         $dataset = $sensormodel->select([], []);
-        require_once 'view/vwsensormodellist.php';
+        require_once 'view/sensormodel/vwsensormodellist.php';
     }
 
     public function insertsensormodel()
@@ -57,7 +60,7 @@ class ctrlSensorModel
         // $row = new dataobjplantModel($row['model_name']);
         // $plantmodel = new modelPlantModel();
         // $count = $plantmodel->insert($row);
-        // require_once 'view/vwplantmodelinserted.php';
+        // require_once 'view/sensormodel/vwplantmodelinserted.php';
         // require_once 'model/moplant.php';
 
         if (isset($_POST['model_name'])) {
@@ -65,9 +68,9 @@ class ctrlSensorModel
             $row = new dataobjSensorModel($_POST['model_name']);
             $plant = new modelSensorModel();
             $count = $plant->insert($row);
-            require_once 'view/vwsensormodelinserted.php';
+            require_once 'view/sensormodel/vwsensormodelinserted.php';
         }else{
-            require_once 'view/insertsensormodel.php';
+            require_once 'view/sensormodel/insertsensormodel.php';
         }
     }
 
@@ -86,6 +89,6 @@ class ctrlSensorModel
         // $row = new dataobjsensormodel($_POST['code'], $_POST['address']);
         $sensormodel = new modelSensorModel();
         $count = $sensormodel->delete($where);
-        require_once 'view/vwsensormodeldeleted.php';
+        require_once 'view/sensormodel/vwsensormodeldeleted.php';
     }
 }
