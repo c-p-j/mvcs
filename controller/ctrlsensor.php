@@ -29,8 +29,8 @@ class ctrlsensor
             $orderBy = array('name' => 'asc');
         }
 
-        var_dump($_GET);
-        var_dump($_POST);
+        //var_dump($_GET);
+        //var_dump($_POST);
 
         if (isset($_POST['order'])) {
             if ($_POST['order'] == 'sensor_SN') {
@@ -45,7 +45,15 @@ class ctrlsensor
 
         require_once 'model/mosensor.php';
         $sensor = new modelSensor();
-        $dataset = $sensor->select($where, $orderBy);
+        // $dataset = $sensor->select($where, $orderBy);
+        try {
+            //code...
+            $dataset = $sensor->select($where, $orderBy);
+            //var_dump($dataset);
+        } catch (PDOException $e) {
+            require_once 'view/errordb.php';
+            return;
+        }
         require_once 'view/sensor/vwsensorlist.php';
     }
 
@@ -53,26 +61,44 @@ class ctrlsensor
     {
         require_once 'model/mosensor.php';
         $sensor = new modelSensor();
-        $dataset = $sensor->select([], []);
+        // $dataset = $sensor->select([], []);
+        try {
+            //code...
+            $dataset = $sensor->select([], []);
+        } catch (PDOException $e) {
+            require_once 'view/errordb.php';
+            return;
+        }
         require_once 'view/sensor/vwsensorlist.php';
     }
 
     public function insertsensor()
     {
         require_once 'model/mosensor.php';
-        // $row = new dataobjSensor($row['sensor_SN'], $row['status'], $row['NOR'], $row['plant_id'], $row['model_name']);
-        // $sensor = new modelSensor();
-        // $count = $sensor->insert($row);
+        // 
         // require_once 'view/sensor/vwsensorinserted.php';
         // require_once 'model/moplant.php';
 
-        if (isset($_POST['sensor_SN'], $_POST['status'], $_POST['NOR'], $_POST['plant_id'], $_POST['model_name'])) {
-            if (empty($_POST['NOR']))
+        if (isset($_POST['sensor_SN'], $_POST['status'], $_POST['NOR'], $_POST['plant_id'], $_POST['model_name']) && !empty($_POST['sensor_SN'])) {
+            if (!empty($_POST['NOR']))
+                $_POST['NOR'] = "'" . $_POST["NOR"] . "'";
+            else
                 $_POST['NOR'] = "NULL";
+            // if (empty($_POST['NOR']))
+            //     $_POST['NOR'] = "NULL";
 
-            $row = new dataobjSensor($_POST['sensor_SN'], $_POST['status'], $_POST['NOR'], $_POST['plant_id'], $_POST['model_name']);
-            $plant = new modelSensor();
-            $count = $plant->insert($row);
+            $row = new dataobjSensor($_POST['sensor_SN'], filter_var($_POST['status'], FILTER_VALIDATE_BOOLEAN), $_POST['NOR'], $_POST['plant_id'], $_POST['model_name']);
+
+            //var_dump($row);
+            $sensor = new modelSensor();
+
+            try {
+                //code...
+                $count = $sensor->insert($row);
+            } catch (PDOException $e) {
+                require_once 'view/errordb.php';
+                return;
+            }
             require_once 'view/sensor/vwsensorinserted.php';
         } else {
             require_once 'model/moplant.php';
@@ -89,13 +115,19 @@ class ctrlsensor
             $where = array('sensor_SN' => $_POST['where']);
         } else {
             $where = [];
-            require_once 'view/error.php';
+            require_once 'view/errorpage.php';
             return;
         };
 
         // $row = new dataobjsensor($_POST['code'], $_POST['address']);
         $sensor = new modelSensor();
-        $count = $sensor->delete($where);
+        try {
+            //code...
+            $count = $sensor->delete($where);
+        } catch (PDOException $e) {
+            require_once 'view/errordb.php';
+            return;
+        }
         require_once 'view/sensor/vwsensordeleted.php';
     }
 
@@ -110,9 +142,12 @@ class ctrlsensor
 
         if (isset($_POST['sensor_SN'])) {
             // $row = new dataobjApartment($_POST['code'], $_POST['address'], $_POST['active_implants']);
+            if (empty($_POST['NOR']))
+                $_POST['NOR'] = NULL;
+
             $fields = array(
                 'sensor_SN' => $_POST['sensor_SN'],
-                'status' => $_POST['status'],
+                'status' => filter_var($_POST['status'], FILTER_VALIDATE_BOOLEAN), //status MUST be a boolean
                 'NOR' => $_POST['NOR'],
                 'plant_id' => $_POST['plant_id'],
                 'model_name' => $_POST['model_name']
@@ -121,7 +156,13 @@ class ctrlsensor
             // if(isset($_POST['address']))
             // $fields->array_push('address' => $_POST['address']);
             $sensor = new modelSensor();
-            $count = $sensor->update($fields);
+            try {
+                //code...
+                $count = $sensor->update($fields);
+            } catch (PDOException $e) {
+                require_once 'view/errordb.php';
+                return;
+            }
             require_once 'view/sensor/vwsensorupdated.php';
         } else {
             require_once 'model/moplant.php';

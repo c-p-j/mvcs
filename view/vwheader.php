@@ -1,3 +1,4 @@
+<?php const EDIT_LEVEL = 1; ?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -30,8 +31,8 @@
                 <ul class="navbar-nav ml-auto">
                     <li class="nav-item"></li>
                     <li class="nav-item"></li>
-                    <li class="nav-item"><a class="nav-link" href="index.php?logout=true">Logout</a></li>
-                    <li class="nav-item"><a class="nav-link" href="view/profile.php"><?php echo(isset($_SESSION["username"]) ? $_SESSION["username"] : "Profile"); ?></a></li>
+                    <li class="nav-item"><a class="nav-link" href="http://localhost/mvcs/index.php?logout=true">Logout</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/mvcs/index.php?controller=ctrlaccount&action=viewprofile"><?php echo(isset($_SESSION["username"]) ? $_SESSION["username"] : "Profile"); ?></a></li>
                 </ul>
             </div>
         </div>

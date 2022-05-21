@@ -27,8 +27,8 @@ class ctrlPlant
             $orderBy = array('name' => 'asc');
         }
 
-        var_dump($_GET);
-        var_dump($_POST);
+        //var_dump($_GET);
+        //var_dump($_POST);
 
         if (isset($_POST['order'])) {
             if ($_POST['order'] == 'apartment_code') {
@@ -44,6 +44,14 @@ class ctrlPlant
         require_once 'model/moplant.php';
         $plant = new modelPlant();
         $dataset = $plant->select($where, $orderBy);
+
+        try {
+            //code...
+            $dataset = $plant->select($where, $orderBy);
+        } catch (PDOException $e) {
+            require_once 'view/errordb.php';
+            return;
+        }
         require_once 'view/plant/vwplantlist.php';
     }
 
@@ -51,7 +59,14 @@ class ctrlPlant
     {
         require_once 'model/moplant.php';
         $plant = new modelPlant();
-        $dataset = $plant->select([], []);
+
+        try {
+            //code...
+            $dataset = $plant->select([], []);
+        } catch (PDOException $e) {
+            require_once 'view/errordb.php';
+            return;
+        }
         require_once 'view/plant/vwplantlist.php';
     }
 
@@ -59,19 +74,25 @@ class ctrlPlant
     {
         // $row = new dataobjPlant($row['plant_id'], $row['status'], $row['name'], $row['NOR'], $row['model_name'], $row['apartment_code'], $row['active_sensors']);
         // $plant = new modelPlant();
-        // $count = $plant->insert($row);
+
         // require_once 'view/plant/vwplantinserted.php';
         require_once 'model/moplant.php';
 
-        if (isset( $_POST['status'], $_POST['name'], $_POST['NOR'], $_POST['model_name'], $_POST['apartment_code'])) {
+        if (isset($_POST['status'], $_POST['name'], $_POST['NOR'], $_POST['model_name'], $_POST['apartment_code']) && !empty($_POST['name'])){
             if (empty($_POST['NOR']))
                 $_POST['NOR'] = "NULL";
-    
-            $row = new dataobjPlant("NULL", $_POST['status'], $_POST['name'], $_POST['NOR'], $_POST['model_name'], $_POST['apartment_code'],0);
+
+            $row = new dataobjPlant("NULL", filter_var($_POST['status'], FILTER_VALIDATE_BOOLEAN), $_POST['name'], $_POST['NOR'], $_POST['model_name'], $_POST['apartment_code'], 0);
             $plant = new modelPlant();
-            $count = $plant->insert($row);
+            try {
+                //code...
+                $count = $plant->insert($row);
+            } catch (PDOException $e) {
+                require_once 'view/errordb.php';
+                return;
+            }
             require_once 'view/plant/vwplantinserted.php';
-        }else{
+        } else {
             require_once 'model/moapartment.php';
             require_once 'model/moplantmodel.php';
             require_once 'view/plant/insertplant.php';
@@ -82,19 +103,30 @@ class ctrlPlant
     {
         // $row = new dataobjPlant($row['plant_id'], $row['status'], $row['name'], $row['NOR'], $row['model_name'], $row['apartment_code'], $row['active_sensors']);
         // $plant = new modelPlant();
-        // $count = $plant->insert($row);
+
         // require_once 'view/plant/vwplantinserted.php';
         require_once 'model/moplant.php';
 
         if (isset($_POST['plant_id'])) {
             // $row = new dataobjApartment($_POST['code'], $_POST['address'], $_POST['active_implants']);
-            $fields = array('plant_id' => $_POST['plant_id'], 'status' => $_POST['status'], 'name' => $_POST['name'], 'NOR' => $_POST['NOR'], 'model_name' => $_POST['model_name'], 'apartment_code' => $_POST['apartment_code']);            
-            // if(isset($_POST['address']))
-                // $fields->array_push('address' => $_POST['address']);
+            if (empty($_POST['NOR']))
+                $_POST['NOR'] = NULL;
+
+            $fields = array('plant_id' => $_POST['plant_id'], 'status' => filter_var($_POST['status'], FILTER_VALIDATE_BOOLEAN), 'name' => $_POST['name'], 'NOR' => $_POST['NOR'], 'model_name' => $_POST['model_name'], 'apartment_code' => $_POST['apartment_code']);
+            //status MUST be converted into a boolean
+            
+            // $fields->array_push('address' => $_POST['address']);
+            // //var_dump($fields);
             $plant = new modelPlant();
-            $count = $plant->update($fields);
+            try {
+                //code...
+                $count = $plant->update($fields);
+            } catch (PDOException $e) {
+                require_once 'view/errordb.php';
+                return;
+            }
             require_once 'view/plant/vwplantupdated.php';
-        } else { 
+        } else {
             require_once 'model/moapartment.php';
             require_once 'model/moplantmodel.php';
             require_once 'view/plant/updateplant.php';
@@ -109,13 +141,17 @@ class ctrlPlant
             $where = array('plant_id' => $_POST['where']);
         } else {
             $where = [];
-            require_once 'view/error.php';
+            require_once 'view/errorpage.php';
             return;
         };
         $plant = new modelPlant();
-        $count = $plant->delete($where);
+        try {
+            //code...
+            $count = $plant->delete($where);
+        } catch (PDOException $e) {
+            require_once 'view/errordb.php';
+            return;
+        }
         require_once 'view/plant/vwplantdeleted.php';
     }
-
-    
 }

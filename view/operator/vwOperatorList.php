@@ -17,7 +17,11 @@
 <table id="operators" class="display table table-striped table-bordered text-center">
     <thead>
         <tr>
-            <th>Delete</th>
+            <?php if (isset($_SESSION["username"]) && $_SESSION["type"] === EDIT_LEVEL) { ?>
+
+                <th>Delete</th>
+            <?php } ?>
+
             <th>Edit</th>
             <th>Operator ID</th>
             <th>Name</th>
@@ -27,25 +31,26 @@
 
     <tbody>
         <?php
-        //var_dump($dataset);
+        ////var_dump($dataset);
         if (isset($dataset)) {
             foreach ($dataset as $row) {
         ?>
                 <tr>
-                    <?php if (isset($_SESSION["username"]) && $_SESSION["type"] > 0) { ?>
+                    <?php if (isset($_SESSION["username"]) && $_SESSION["type"] === EDIT_LEVEL) { ?>
                         <td>
                             <form action="index.php?controller=ctrloperator&action=deleteoperator" method="POST">
-                                <input type="hidden" name="where" value="' . $row->getOperatorId() . '">
+                                <input type="hidden" name="where" value="<?php echo ($row->getOperatorId()); ?>">
                                 <button type="submit" class="btn border border-danger">Delete</button>
                             </form>
                         </td>
-                        <td>
-                            <form action="index.php?controller=ctrloperator&action=updateoperator" method="POST">
-                                <input type="hidden" name="where" value="' . $row->getOperatorId() . '">
-                                <button type="submit" class="btn border border-secondary">Edit</button>
-                            </form>
-                        </td>
                     <?php } ?>
+
+                    <td>
+                        <form action="index.php?controller=ctrloperator&action=updateoperator" method="POST">
+                            <input type="hidden" name="where" value="<?php echo ($row->getOperatorId()); ?>">
+                            <button type="submit" class="btn border border-secondary">Edit</button>
+                        </form>
+                    </td>
 
                     <td><?php echo $row->getOperatorId() ?></td>
                     <td><?php echo $row->getName() ?></td>

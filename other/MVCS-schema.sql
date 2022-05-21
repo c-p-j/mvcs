@@ -8,7 +8,9 @@ CREATE TABLE Apartment
   address VARCHAR(50) NOT NULL,
   active_implants INT NOT NULL DEFAULT 0,
   PRIMARY KEY (apartment_code),
-  CHECK(active_implants >= 0)
+  CHECK(active_implants >= 0),
+  CHECK(address != ""),
+  CHECK(apartment_code != "")
 );
 
 CREATE TABLE Operator
@@ -36,7 +38,7 @@ CREATE TABLE Plant
   plant_id INT AUTO_INCREMENT,
   status BOOLEAN NOT NULL,
   name VARCHAR(30) NOT NULL,
-  NOR VARCHAR(500),
+  NOR VARCHAR(500) NULL DEFAULT NULL,
   model_name VARCHAR(50) NOT NULL,
   apartment_code VARCHAR(30) NOT NULL,
   active_sensors INT NOT NULL DEFAULT 0,
@@ -44,8 +46,9 @@ CREATE TABLE Plant
   FOREIGN KEY (model_name) REFERENCES PlantModel(model_name) ON UPDATE CASCADE ON DELETE RESTRICT,
   FOREIGN KEY (apartment_code) REFERENCES Apartment(apartment_code) ON UPDATE CASCADE ON DELETE RESTRICT,
   UNIQUE(name),
-  CHECK(status = ISNULL(NOR)),
-  CHECK(active_sensors >= 0)
+  CONSTRAINT statusNor CHECK(status = ISNULL(NOR)),
+  CHECK(active_sensors >= 0),
+  CHECK(name != "")
 );
 
 CREATE TABLE Installation
@@ -64,13 +67,15 @@ CREATE TABLE Sensor
 (
   sensor_SN VARCHAR(50),
   status BOOLEAN NOT NULL,
-  NOR VARCHAR(500),
+  NOR VARCHAR(500) NULL DEFAULT NULL,
   plant_id INT NOT NULL,
   model_name VARCHAR(50) NOT NULL,
   PRIMARY KEY (sensor_SN),
-  FOREIGN KEY (plant_id) REFERENCES Plant(plant_id) ON UPDATE CASCADE ON DELETE RESTRICT,
-  FOREIGN KEY (model_name) REFERENCES SensorModel(model_name) ON UPDATE CASCADE ON DELETE RESTRICT,
-  CHECK(status = ISNULL(NOR))
+  CONSTRAINT fk1 FOREIGN KEY (plant_id) REFERENCES Plant(plant_id) ON UPDATE CASCADE ON DELETE RESTRICT,
+  CONSTRAINT fk2 FOREIGN KEY (model_name) REFERENCES SensorModel(model_name) ON UPDATE CASCADE ON DELETE RESTRICT,
+  CONSTRAINT statusNorSensor CHECK(status = ISNULL(NOR)),
+  CHECK(sensor_SN != "")
+
 );
 
 CREATE TABLE Users

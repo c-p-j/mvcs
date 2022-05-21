@@ -17,8 +17,8 @@ class ctrlapartment
             $where = [];
             $orderBy = [];
         };
-        // var_dump($_GET);
-        // var_dump($_POST);
+        // //var_dump($_GET);
+        // //var_dump($_POST);
 
         if (isset($_GET['id'])) {
             $where = array('apartment_code' => $_GET['id']);
@@ -38,7 +38,13 @@ class ctrlapartment
 
         require_once 'model/moapartment.php';
         $apartment = new modelApartment();
-        $dataset = $apartment->select($where, $orderBy);
+
+        try {
+            $dataset = $apartment->select($where, $orderBy);
+        } catch (PDOException $e) {
+            require_once 'view/errordb.php';
+            return;
+        }
         require_once 'view/apartment/vwapartmentlist.php';
     }
 
@@ -61,7 +67,12 @@ class ctrlapartment
         if (isset($_POST['code'], $_POST['address'], $_POST['active_implants'])) {
             $row = new dataobjApartment($_POST['code'], $_POST['address'], $_POST['active_implants']);
             $apartment = new modelApartment();
-            $count = $apartment->insert($row);
+            try {
+                $count = $apartment->insert($row);
+            } catch (PDOException $e) {
+                require_once 'view/errordb.php';
+                return;
+            }
             require_once 'view/apartment/vwapartmentinserted.php';
         } else {
             require_once 'view/apartment/insertapartment.php';
@@ -78,13 +89,18 @@ class ctrlapartment
 
         if (isset($_POST['apartment_code'])) {
             // $row = new dataobjApartment($_POST['code'], $_POST['address'], $_POST['active_implants']);
-            $fields = array('apartment_code'=> $_POST['apartment_code'],'address' => $_POST['address']);
+            $fields = array('apartment_code' => $_POST['apartment_code'], 'address' => $_POST['address']);
             // if(isset($_POST['address']))
-                // $fields->array_push('address' => $_POST['address']);
+            // $fields->array_push('address' => $_POST['address']);
             $apartment = new modelApartment();
-            $count = $apartment->update($fields);
+            try {
+                $count = $apartment->update($fields);
+            } catch (PDOException $e) {
+                require_once 'view/errordb.php';
+                return;
+            }
             require_once 'view/apartment/vwapartmentinserted.php';
-        } else { 
+        } else {
             require_once 'view/apartment/updateapartment.php';
         }
     }
@@ -97,13 +113,18 @@ class ctrlapartment
             $where = array('apartment_code' => $_POST['where']);
         } else {
             $where = [];
-            require_once 'view/error.php';
+            require_once 'view/errorpage.php';
             return;
         };
 
         // $row = new dataobjApartment($_POST['code'], $_POST['address']);
         $apartment = new modelApartment();
-        $count = $apartment->delete($where);
+        try {
+            $count = $apartment->delete($where);
+        } catch (PDOException $e) {
+            require_once 'view/errordb.php';
+            return;
+        }
         require_once 'view/apartment/vwapartmentdeleted.php';
     }
 }

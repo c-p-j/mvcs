@@ -18,11 +18,11 @@
     <table id="installations" class="display table table-striped table-bordered text-center">
         <thead>
             <tr>
-                <?php if (isset($_SESSION["username"]) && $_SESSION["type"] > 0) { ?>
-                    <th>Delete</th>
-
-                    <th>Edit</th>
+                <?php if (isset($_SESSION["username"]) && $_SESSION["type"] === EDIT_LEVEL) { ?>
+                    <th>Delete**</th>
                 <?php } ?>
+
+                <th>Edit</th>
 
                 <th>Plant</th>
                 <th>Operator</th>
@@ -33,13 +33,13 @@
 
         <tbody>
             <?php
-            // var_dump($dataset);
+            // //var_dump($dataset);
             if (isset($dataset)) {
                 foreach ($dataset as $row) {
-                    // var_dump($row);
+                    // //var_dump($row);
             ?>
                     <tr>
-                        <?php if (isset($_SESSION["username"]) && $_SESSION["type"] > 0) { ?>
+                        <?php if (isset($_SESSION["username"]) && $_SESSION["type"] === EDIT_LEVEL) { ?>
                             <td>
                                 <form action="index.php?controller=ctrlinstallation&action=deleteinstallation" class="my-auto" method="post">
                                     <input type="hidden" name="wherePlant" value="<?php echo $row->getPlantId() ?>">
@@ -48,18 +48,18 @@
                                 </form>
                             </td>
 
-
-                            <td>
-
-                                <form action="index.php?controller=ctrlinstallation&action=updateinstallation" class="my-auto" method="post">
-                                    <input type="hidden" name="defaultDateTime" value="<?php echo $row->getDateTime() ?>">
-                                    <input type="hidden" name="previousplant" value="<?php echo $row->getPlantId() ?>">
-                                    <input type="hidden" name="previousstatus" value="<?php echo $row->getStatus() ?>">
-                                    <input type="hidden" name="previousoperator" value="<?php echo $row->getOperatorId() ?>">
-                                    <button type="submit" class="btn btn-border border-secondary">Edit</button>
-                                </form>
-                            </td>
                         <?php } ?>
+
+                        <td>
+
+                            <form action="index.php?controller=ctrlinstallation&action=updateinstallation" class="my-auto" method="post">
+                                <input type="hidden" name="defaultDateTime" value="<?php echo $row->getDateTime() ?>">
+                                <input type="hidden" name="previousplant" value="<?php echo $row->getPlantId() ?>">
+                                <input type="hidden" name="previousstatus" value="<?php echo $row->getStatus() ?>">
+                                <input type="hidden" name="previousoperator" value="<?php echo $row->getOperatorId() ?>">
+                                <button type="submit" class="btn btn-border border-secondary">Edit</button>
+                            </form>
+                        </td>
 
                         <td><a href="index.php?controller=ctrlplant&action=viewplant&id=<?php echo $row->getPlantId() ?>"><?php echo $row->getPlantName() ?></a></td>
 
@@ -83,6 +83,8 @@
         </tbody>
     </table>
 </div>
+
+<p class="font-weight-bold text-danger">**it's not allowed to delete an installation if it's already done</p>
 
 <div class="container-full mb-4">
     <div class="mx-auto h100 text-center">

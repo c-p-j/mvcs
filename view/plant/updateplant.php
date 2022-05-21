@@ -4,7 +4,7 @@ require 'view/vwheader.php';
 ?>
 
 <div class="container border border-muted mx-auto my-3 w-50 text-center" style="border: 3px solid black;">
-    <h1 class=" my-4">Update Apartment</h1>
+    <h1 class=" my-4">Update Plant</h1>
     <div class="row mx-auto">
         <div class="col form-group text-center">
 

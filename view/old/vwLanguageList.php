@@ -13,7 +13,7 @@
             <th>ultima modifica</th>
         </tr>
 <?php
-//var_dump($dataset);
+////var_dump($dataset);
 if (isset($dataset))
 {   foreach ($dataset as $row) 
     {

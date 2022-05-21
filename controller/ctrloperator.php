@@ -15,7 +15,7 @@ class ctrloperator
             $orderBy = [];
         };
 
-        
+
         if (isset($_GET['id'])) {
             $where = array('operator_id' => $_GET['id']);
             $orderBy = array('name' => 'asc');
@@ -37,7 +37,15 @@ class ctrloperator
 
         require_once 'model/mooperator.php';
         $operator = new modeloperator();
-        $dataset = $operator->select($where, $orderBy);
+
+
+        try {
+            //code...
+            $dataset = $operator->select($where, $orderBy);
+        } catch (PDOException $e) {
+            require_once 'view/errordb.php';
+            return;
+        }
         require_once 'view/operator/vwoperatorlist.php';
     }
 
@@ -46,6 +54,14 @@ class ctrloperator
         require_once 'model/mooperator.php';
         $operator = new modeloperator();
         $dataset = $operator->select([], []);
+
+        try {
+            //code...
+            $dataset = $operator->select([], []);
+        } catch (PDOException $e) {
+            require_once 'view/errordb.php';
+            return;
+        }
         require_once 'view/operator/vwoperatorlist.php';
     }
 
@@ -54,14 +70,20 @@ class ctrloperator
         require_once 'model/mooperator.php';
         // $row = new dataobjOperator($_POST['code'], $_POST['name'], $_POST['surname']);
         // $operator = new modeloperator();
-        // $count = $operator->insert($row);
+
         // require_once 'model/moplant.php';
 
-        if (isset($_POST['name'], $_POST['surname'])) {
+        if (isset($_POST['name'], $_POST['surname']) && !empty($_POST['name']) && !empty($_POST['surname'])) {
 
             $row = new dataobjOperator(NULL, $_POST['name'], $_POST['surname']);
             $operator = new modeloperator();
-            $count = $operator->insert($row);
+            try {
+                //code...
+                $count = $operator->insert($row);
+            } catch (PDOException $e) {
+                require_once 'view/errordb.php';
+                return;
+            }
             require_once 'view/operator/vwoperatorinserted.php';
         } else {
             // require_once 'model/moapartment.php';
@@ -78,14 +100,20 @@ class ctrloperator
             $where = array('operator_id' => $_POST['where']);
         } else {
             $where = [];
-            require_once 'view/error.php';
+            require_once 'view/errorpage.php';
             return;
         };
 
         // $row = new dataobjApartment($_POST['code'], $_POST['address']);
         $operator = new modeloperator();
-        $count = $operator->delete($where);
-        // require_once 'view/operator/vwaoperatordeleted.php'; //TODO: modifica
+        try {
+            //code...
+            $count = $operator->delete($where);
+        } catch (PDOException $e) {
+            require_once 'view/errordb.php';
+            return;
+        }
+        require_once 'view/operator/vwoperatordeleted.php';
     }
 
 
@@ -100,13 +128,19 @@ class ctrloperator
         if (isset($_POST['operator_id'])) {
             // $row = new dataobjApartment($_POST['code'], $_POST['address'], $_POST['active_implants']);
             $fields = array(
-                'operator_id' => $_POST['operator_id'],
+                'operator_id' => (int)$_POST['operator_id'],
                 'name' => $_POST['name'],
                 'surname' => $_POST['surname']
             );
-            $apartment = new modelOperator();
-            $count = $apartment->update($fields);
-            require_once 'view/operator/vwapartmentinserted.php';
+            $operator = new modelOperator();
+            try {
+                //code...
+                $count = $operator->update($fields);
+            } catch (PDOException $e) {
+                require_once 'view/errordb.php';
+                return;
+            }
+            require_once 'view/operator/vwoperatorupdated.php';
         } else {
             // require 'E:\xampp\htdocs\mvcs\view\vwheader.php';
 

@@ -8,8 +8,8 @@ class modelPlant
 
     public static function insert($row)
     {
-        var_dump($row) . '\n<br>';
-        // var_dump($row->getlanguage_id());
+        //var_dump($row) . '\n<br>';
+        // //var_dump($row->getlanguage_id());
         $sqlText = "INSERT INTO plant (
                     `plant_id`,
                     `status`,
@@ -21,11 +21,11 @@ class modelPlant
                     )
         VALUES (" . $row->getPlantId() . "," .
             $row->getStatus() . ",'" .
-            $row->getName() . "','" .
-            $row->getNOR() . "','" .
+            $row->getName() . "'," .
+            $row->getNOR() . ",'" .
             $row->getModelName() . "','" .
             $row->getApartmentCode() . "',0)";
-        var_dump($sqlText);
+        //var_dump($sqlText);
 
         $connection = Database::getConnection();
         $connection->beginTransaction();
@@ -36,14 +36,16 @@ class modelPlant
             return $result;
         } catch (PDOException $e) {
             $connection->rollback();
-            echo "Error insert: " . $sqlText . " " . $e->getMessage();
+            throw $e;
+
             return 0;
         }
     }
 
     public static function update($fields)
     {
-        // var_dump($row) . '\n<br>';
+        //    //var_dump ($fields);
+        // //var_dump($row) . '\n<br>';
         $sqlText = "UPDATE plant";
         /* VALUES ('" . $row->getApartmentCode()
             . "','" . $row->getAddress() . "',0)";
@@ -51,9 +53,9 @@ class modelPlant
         if (isset($fields) && count($fields) > 0) {
             $sqlText .= " SET ";
             foreach ($fields as $key => $value) {
-                // var_dump(end($fields));
-                if (isset($value) && !empty($value))
-                    if ($value === end($fields))
+                // //var_dump(end($fields));
+                if ((isset($value) && !empty($value)) || $key === "NOR" || $value === false) //NOR and a false boolean are the exceptions
+                    if (($value === end($fields)) && (key($fields) === $key))
                         $sqlText .= $key . " = :" . $key . ' ';
                     else
                         $sqlText .= $key . " = :" . $key . ', ';
@@ -63,21 +65,22 @@ class modelPlant
         }
 
         $sqlText .= " WHERE plant_id = :plant_id";
-        var_dump($sqlText);
+        //var_dump($sqlText);
         $connection = Database::getConnection();
         $connection->beginTransaction();
         try {
             $sql = $connection->prepare($sqlText);
-            //        var_dump ($result);
+            //        //var_dump ($result);
             // $sql->setFetchMode(PDO::FETCH_ASSOC);
             if (isset($fields))
                 $result = $sql->execute($fields);
             else
                 $result = $sql->execute();
+
             // $result = $sql->fetchAll();
             $connection->commit();
             return $result;
-            // var_dump($result);
+            // //var_dump($result);
             // $dataset = array();
             // foreach ($result as $row) {
             //     array_push($dataset, new dataobjApartment($row["apartment_code"], $row["address"], $row["active_implants"]));
@@ -86,7 +89,7 @@ class modelPlant
         } catch (PDOException $e) {
             // roll back the transaction if something failed
             $connection->rollback();
-            echo "Error select: " . $sqlText . " " . $e->getMessage();
+            throw $e;
         }
     }
 
@@ -103,25 +106,25 @@ class modelPlant
             return 0;
         }
 
-        var_dump($sqlText);
+        //var_dump($sqlText);
         $connection = Database::getConnection();
         $connection->beginTransaction();
 
         try {
             $sql = $connection->prepare($sqlText);
-            //        var_dump ($result);
+            //        //var_dump ($result);
             // $sql->setFetchMode(PDO::FETCH_ASSOC);
             if (isset($where) && count($where) > 0)
                 $result = $sql->execute($where);
             else $result = $sql->execute();
             $connection->commit();
             // primo modo   return $result;
-            // var_dump($result);
+            // //var_dump($result);
             return $result;
         } catch (PDOException $e) {
             // roll back the transaction if something failed
             $connection->rollback();
-            // echo "Error select: " . $sqlText. " ". $e->getMessage();
+            throw $e;
         }
     }
     // -----------------------------------------------------------------------------------------------------
@@ -142,13 +145,13 @@ class modelPlant
                 $sqlText .= " " . $key . " " . $value; // gestire separatore tra coppie
             }
         }
-        var_dump($sqlText);
+        //var_dump($sqlText);
 
         $connection = Database::getConnection();
         $connection->beginTransaction();
         try {
             $sql = $connection->prepare($sqlText);
-            //        var_dump ($result);
+            //        //var_dump ($result);
             $sql->setFetchMode(PDO::FETCH_ASSOC);
             if (isset($where) && count($where) > 0)
                 $sql->execute($where);
@@ -165,7 +168,7 @@ class modelPlant
         } catch (PDOException $e) {
             // roll back the transaction if something failed
             $connection->rollback();
-            // echo "Error select: " . $sqlText. " ". $e->getMessage();
+            throw $e;
         }
     }
 }

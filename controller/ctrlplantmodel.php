@@ -34,7 +34,7 @@ class ctrlPlantModel
                 $orderBy = array('model_name' => 'asc');
             };
             if ($_POST['order'] == 'model_name') {
-                $orderBy = array('model_name' => 'asc'); //TODO: modifica
+                $orderBy = array('model_name' => 'asc'); 
             };
         } else {
             $orderBy = [];
@@ -42,7 +42,14 @@ class ctrlPlantModel
 
         require_once 'model/moplantmodel.php';
         $plantmodel = new modelPlantModel();
-        $dataset = $plantmodel->select($where, $orderBy);
+
+        try {
+            //code...
+            $dataset = $plantmodel->select($where, $orderBy);
+        } catch (PDOException $e) {
+            require_once 'view/errordb.php';
+            return;
+        }
         require_once 'view/plantmodel/vwplantmodellist.php';
     }
 
@@ -50,7 +57,13 @@ class ctrlPlantModel
     {
         require_once 'model/moplantmodel.php';
         $plantmodel = new modelPlantModel();
-        $dataset = $plantmodel->select([], []);
+        try {
+            //code...
+            $dataset = $plantmodel->select([], []);
+        } catch (PDOException $e) {
+            require_once 'view/errordb.php';
+            return;
+        }
         require_once 'view/plantmodel/vwplantmodellist.php';
     }
 
@@ -59,17 +72,22 @@ class ctrlPlantModel
         require_once 'model/moplantmodel.php';
         // $row = new dataobjplantModel($row['model_name']);
         // $plantmodel = new modelPlantModel();
-        // $count = $plantmodel->insert($row);
         // require_once 'view/plantmodel/vwplantmodelinserted.php';
         // require_once 'model/moplant.php';
 
         if (isset($_POST['model_name'])) {
-    
+
             $row = new dataobjPlantModel($_POST['model_name']);
-            $plant = new modelPlantModel();
-            $count = $plant->insert($row);
+            $plantmodel = new modelPlantModel();
+            try {
+                //code...
+                $count = $plantmodel->insert($row);
+            } catch (PDOException $e) {
+                require_once 'view/errordb.php';
+                return;
+            }
             require_once 'view/plantmodel/vwplantmodelinserted.php';
-        }else{
+        } else {
             require_once 'view/plantmodel/insertplantmodel.php';
         }
     }
@@ -82,13 +100,19 @@ class ctrlPlantModel
             $where = array('model_name' => $_POST['where']);
         } else {
             $where = [];
-            require_once 'view/error.php';
+            require_once 'view/errorpage.php';
             return;
         };
 
         // $row = new dataobjplantmodel($_POST['code'], $_POST['address']);
         $plantmodel = new modelPlantModel();
-        $count = $plantmodel->delete($where);
+        try {
+            //code...
+            $count = $plantmodel->delete($where);
+        } catch (PDOException $e) {
+            require_once 'view/errordb.php';
+            return;
+        }
         require_once 'view/plantmodel/vwplantmodeldeleted.php';
     }
 }

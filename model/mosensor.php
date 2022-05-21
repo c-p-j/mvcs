@@ -8,16 +8,16 @@ class modelSensor
 
     public static function insert($row)
     {
-        var_dump($row) . '\n<br>';
-        // var_dump($row->getlanguage_id());
+        //var_dump($row) . '\n<br>';
+        // //var_dump($row->getlanguage_id());
         $sqlText = "INSERT INTO sensor (
                     `sensor_SN`,
                     `status`,
                     `NOR`,
                     `plant_id`,
                     `model_name`)
-        VALUES ('" . $row->getSensorSN() . "'," . $row->getStatusBool() . ",'" . $row->getNOR() . "'," . $row->getPlantId() . ",'" . $row->getModelName() . "')";
-        var_dump($sqlText);
+        VALUES ('" . $row->getSensorSN() . "'," . $row->getStatusBool() . "," . $row->getNOR() . "," . $row->getPlantId() . ",'" . $row->getModelName() . "')";
+        //var_dump($sqlText);
 
         $connection = Database::getConnection();
         $connection->beginTransaction();
@@ -28,7 +28,8 @@ class modelSensor
             return $result;
         } catch (PDOException $e) {
             $connection->rollback();
-            echo "Error insert: " . $sqlText . " " . $e->getMessage();
+            throw $e;
+
             return 0;
         }
     }
@@ -42,9 +43,9 @@ class modelSensor
         if (isset($fields) && count($fields) > 0) {
             $sqlText .= " SET ";
             foreach ($fields as $key => $value) {
-                // var_dump(end($fields));
-                if (isset($value) && !empty($value))
-                    if ($value === end($fields))
+                // //var_dump(end($fields));
+                if ((isset($value) && !empty($value)) || $key === "NOR" || $value === false) //NOR and a false boolean are the exceptions
+                    if (($value === end($fields)) && (key($fields) === $key))
                         $sqlText .= $key . " = :" . $key . ' ';
                     else
                         $sqlText .= $key . " = :" . $key . ', ';
@@ -54,12 +55,12 @@ class modelSensor
         }
 
         $sqlText .= " WHERE sensor_SN = :sensor_SN";
-        var_dump($sqlText);
+        //var_dump($sqlText);
         $connection = Database::getConnection();
         $connection->beginTransaction();
         try {
             $sql = $connection->prepare($sqlText);
-            //        var_dump ($result);
+            //        //var_dump ($result);
             // $sql->setFetchMode(PDO::FETCH_ASSOC);
             if (isset($fields))
                 $result = $sql->execute($fields);
@@ -68,7 +69,7 @@ class modelSensor
             // $result = $sql->fetchAll();
             $connection->commit();
             return $result;
-            // var_dump($result);
+            // //var_dump($result);
             // $dataset = array();
             // foreach ($result as $row) {
             //     array_push($dataset, new dataobjApartment($row["apartment_code"], $row["address"], $row["active_implants"]));
@@ -77,7 +78,7 @@ class modelSensor
         } catch (PDOException $e) {
             // roll back the transaction if something failed
             $connection->rollback();
-            echo "Error select: " . $sqlText . " " . $e->getMessage();
+            throw $e;
         }
     }
 
@@ -94,31 +95,31 @@ class modelSensor
             return 0;
         }
 
-        var_dump($sqlText);
+        //var_dump($sqlText);
         $connection = Database::getConnection();
         $connection->beginTransaction();
 
         try {
             $sql = $connection->prepare($sqlText);
-            //        var_dump ($result);
+            //        //var_dump ($result);
             // $sql->setFetchMode(PDO::FETCH_ASSOC);
             if (isset($where) && count($where) > 0)
                 $result = $sql->execute($where);
             else $result = $sql->execute();
             $connection->commit();
             // primo modo   return $result;
-            // var_dump($result);
+            // //var_dump($result);
             return $result;
         } catch (PDOException $e) {
             // roll back the transaction if something failed
             $connection->rollback();
-            // echo "Error select: " . $sqlText. " ". $e->getMessage();
+            throw $e;
         }
     }
     // -----------------------------------------------------------------------------------------------------
     public static function select($where, $orderBy)
     {
-        $sqlText = "SELECT sensor_SN,s.status,s.NOR,p.plant_id,p.name as plant_name, s.model_name FROM sensor s join plant p using(plant_id)";
+        $sqlText = "SELECT sensor_SN,s.status,s.NOR,p.plant_id,p.name as plant_name, s.model_name as model_name FROM sensor s join plant p using(plant_id)";
 
         if (isset($where) && count($where) > 0) {
             $sqlText .= " WHERE ";
@@ -133,13 +134,13 @@ class modelSensor
                 $sqlText .= $key . "= :" . $key; // gestire separatore tra coppie
             }
         }
-        //        var_dump ($sqlText);
+        //        //var_dump ($sqlText);
 
         $connection = Database::getConnection();
         $connection->beginTransaction();
         try {
             $sql = $connection->prepare($sqlText);
-            //        var_dump ($result);
+            //        //var_dump ($result);
             $sql->setFetchMode(PDO::FETCH_ASSOC);
             if (isset($where) && count($where) > 0)
                 $sql->execute($where);
@@ -150,15 +151,13 @@ class modelSensor
 
             $dataset = array();
             foreach ($result as $row) {
-                array_push($dataset, new dataobjSensor($row['sensor_SN'], $row['status'], $row['NOR'], $row['plant_id'], $row['plant_name'], $row['model_name']));
+                array_push($dataset, dataobjSensor::withName($row['sensor_SN'], $row['status'], $row['NOR'], $row['plant_id'], $row['plant_name'], $row['model_name']));
             }
             return $dataset;
         } catch (PDOException $e) {
             // roll back the transaction if something failed
             $connection->rollback();
-            echo "Error select: " . $sqlText. " ". $e->getMessage();
+            throw $e;
         }
     }
 }
-
-    

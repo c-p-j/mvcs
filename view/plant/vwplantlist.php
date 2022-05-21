@@ -1,13 +1,6 @@
 <?php require_once 'view/vwheader.php'; ?>
 
-
-<!-- <table>
-        <tr>
-            <th>Code</th>
-            <th>Address</th>
-        </tr> -->
-
-
+<h1 class="display-5 text-center">Plants <?php echo(isset($_POST['where']) ? "inside ".$_POST['where'] : ''); ?></h1>
 
 <div class="container mx-auto text-center">
     <form action="index.php?controller=ctrlplant&action=insertplant" method="post">
@@ -16,10 +9,12 @@
     </form>
 </div>
 
+<br>
+
 <div class="container">
     <?php
-    //var_dump($dataset);
-    // var_dump($dataset);
+    ////var_dump($dataset);
+    // //var_dump($dataset);
     if (isset($dataset)) {
         $numcol = 3;
         $col = 0;
@@ -29,7 +24,7 @@
     ?>
                     <div class="row mb-3">
                         <div class="col">
-                            <div class="card mx-auto <?php echo(count($dataset) === 1 ? "mw-50" : "") ?> w-100 py-0">
+                            <div class="card mx-auto <?php echo (count($dataset) === 1 ? "mw-50" : "") ?> w-100 py-0">
                                 <div class="card-body">
                                     <h5 class="card-title"><b><?php echo $row->getName() ?></b></h5>
                                     <p class="card-text"><b>ID:</b> <?php echo $row->getPlantId() ?></p>
@@ -60,13 +55,14 @@
                                         <input type="hidden" name="where" value="<?php echo $row->getPlantId() ?>">
                                         <button type="submit" class="btn btn-primary ">Show sensors</button>
                                     </form>
-                                    <?php if (isset($_SESSION["username"]) && $_SESSION["type"] > 0) { ?>
 
-                                        <form action="index.php?controller=ctrlplant&action=updateplant" method="POST">
-                                            <input type="hidden" name="where" value="<?php echo $row->getPlantId() ?>">
-                                            <button type="submit" class="btn btn-secondary">Edit</button>
-                                        </form>
+                                    <form action="index.php?controller=ctrlplant&action=updateplant" method="POST">
+                                        <input type="hidden" name="where" value="<?php echo $row->getPlantId() ?>">
+                                        <input type="hidden" name="previous" value="<?php echo $_POST['where'] ?>">
+                                        <button type="submit" class="btn btn-secondary">Edit</button>
+                                    </form>
 
+                                    <?php if (isset($_SESSION["username"]) && $_SESSION["type"] === EDIT_LEVEL) { ?>
                                         <form action="index.php?controller=ctrlplant&action=deleteplant" method="POST">
                                             <input type="hidden" name="where" value="<?php echo $row->getPlantId() ?>">
                                             <button type="submit" class="btn btn-danger">Delete</button>
@@ -112,11 +108,13 @@
                                         <button type="submit" class="btn btn-primary">Show sensors</button>
 
                                     </form>
-                                    <?php if (isset($_SESSION["username"]) && $_SESSION["type"] > 0) { ?>
-                                        <form action="index.php?controller=ctrlplant&action=updateplant" method="POST">
-                                            <input type="hidden" name="where" value="<?php echo $row->getPlantId() ?>">
-                                            <button type="submit" class="btn btn-secondary">Edit</button>
-                                        </form>
+
+                                    <form action="index.php?controller=ctrlplant&action=updateplant" method="POST">
+                                        <input type="hidden" name="where" value="<?php echo $row->getPlantId() ?>">
+                                        <input type="hidden" name="previous" value="<?php echo $_POST['where'] ?>">
+                                        <button type="submit" class="btn btn-secondary">Edit</button>
+                                    </form>
+                                    <?php if (isset($_SESSION["username"]) && $_SESSION["type"] === EDIT_LEVEL) { ?>
                                         <form action="index.php?controller=ctrlplant&action=deleteplant" method="POST">
                                             <input type="hidden" name="where" value="<?php echo $row->getPlantId() ?>">
                                             <button type="submit" class="btn btn-danger">Delete</button>
@@ -162,11 +160,12 @@
                                     <button type="submit" class="btn btn-primary">Show sensors</button>
 
                                 </form>
-                                <?php if (isset($_SESSION["username"]) && $_SESSION["type"] > 0) { ?>
-                                    <form action="index.php?controller=ctrlplant&action=updateplant" method="POST">
-                                        <input type="hidden" name="where" value="<?php echo $row->getPlantId() ?>">
-                                        <button type="submit" class="btn btn-secondary">Edit</button>
-                                    </form>
+                                <form action="index.php?controller=ctrlplant&action=updateplant" method="POST">
+                                    <input type="hidden" name="where" value="<?php echo $row->getPlantId() ?>">
+                                    <input type="hidden" name="previous" value="<?php echo $_POST['where'] ?>">
+                                    <button type="submit" class="btn btn-secondary">Edit</button>
+                                </form>
+                                <?php if (isset($_SESSION["username"]) && $_SESSION["type"] === EDIT_LEVEL) { ?>
                                     <form action="index.php?controller=ctrlplant&action=deleteplant" method="POST">
                                         <input type="hidden" name="where" value="<?php echo $row->getPlantId() ?>">
                                         <button type="submit" class="btn btn-danger">Delete</button>

@@ -42,7 +42,14 @@ class ctrlSensorModel
 
         require_once 'model/mosensormodel.php';
         $sensormodel = new modelSensorModel();
-        $dataset = $sensormodel->select($where, $orderBy);
+
+        try {
+            //code...
+            $dataset = $sensormodel->select($where, $orderBy);
+        } catch (\Throwable $th) {
+            require_once 'view/errordb.php';
+            return;
+        }
         require_once 'view/sensormodel/vwsensormodellist.php';
     }
 
@@ -50,7 +57,14 @@ class ctrlSensorModel
     {
         require_once 'model/mosensormodel.php';
         $sensormodel = new modelSensorModel();
-        $dataset = $sensormodel->select([], []);
+
+        try {
+            //code...
+            $dataset = $sensormodel->select([], []);
+        } catch (\Throwable $th) {
+            require_once 'view/errordb.php';
+            return;
+        }
         require_once 'view/sensormodel/vwsensormodellist.php';
     }
 
@@ -64,12 +78,18 @@ class ctrlSensorModel
         // require_once 'model/moplant.php';
 
         if (isset($_POST['model_name'])) {
-    
+
             $row = new dataobjSensorModel($_POST['model_name']);
-            $plant = new modelSensorModel();
-            $count = $plant->insert($row);
+            $sensormodel = new modelSensorModel();
+            try {
+                //code...
+                $count = $sensormodel->insert($row);
+            } catch (\Throwable $th) {
+                require_once 'view/errordb.php';
+                return;
+            }
             require_once 'view/sensormodel/vwsensormodelinserted.php';
-        }else{
+        } else {
             require_once 'view/sensormodel/insertsensormodel.php';
         }
     }
@@ -80,15 +100,21 @@ class ctrlSensorModel
 
         if (isset($_POST['where'])) {
             $where = array('model_name' => $_POST['where']);
+            $sensormodel = new modelSensorModel();
+            try {
+                //code...
+                $count = $sensormodel->delete($where);
+            } catch (\Throwable $e) {
+                require_once 'view/errordb.php';
+                return;
+            }
+            require_once 'view/sensormodel/vwsensormodeldeleted.php';
         } else {
-            $where = [];
-            require_once 'view/error.php';
-            return;
+            require_once 'view/sensormodel/deletesensormodel.php';
+            // return;
         };
 
         // $row = new dataobjsensormodel($_POST['code'], $_POST['address']);
-        $sensormodel = new modelSensorModel();
-        $count = $sensormodel->delete($where);
-        require_once 'view/sensormodel/vwsensormodeldeleted.php';
+
     }
 }

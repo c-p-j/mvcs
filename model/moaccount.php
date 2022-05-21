@@ -1,21 +1,18 @@
 <?php
 
 require_once 'database.php';
-require_once 'dataobject/dooperator.php';
+require_once 'dataobject/doapartment.php';
 
-class modeloperator
+class modelAccount
 {
 
     public static function insert($row)
     {
         //var_dump($row) . '\n<br>';
-        // //var_dump($row->getlanguage_id());
-        $sqlText = "INSERT INTO operator (
-                    `operator_id`,
-                    `name`,`surname` )
-        VALUES (NULL ,'" .
-            $row->getName() . "','" .
-            $row->getSurname() . "')";
+        $sqlText = "INSERT INTO users
+        VALUES (NULL,'" . $row->getUsername()
+            . "','" . $row->getPassword() . "'," .
+            $row->getType() . ")";
         //var_dump($sqlText);
 
         $connection = Database::getConnection();
@@ -28,64 +25,14 @@ class modeloperator
         } catch (PDOException $e) {
             $connection->rollback();
             throw $e;
-
             return 0;
         }
     }
 
-    public static function update($fields)
-    {
-        $sqlText = "UPDATE operator";
-        /* VALUES ('" . $row->getApartmentCode()
-            . "','" . $row->getAddress() . "',0)";
-            */
-                //var_dump($fields);
-
-        if (isset($fields) && count($fields) > 0) {
-            $sqlText .= " SET ";
-            foreach ($fields as $key => $value) {
-                // //var_dump(end($fields));
-                if (isset($value) && !empty($value))
-                    if (($value === end($fields)) && (key($fields) === $key))
-                        $sqlText .= $key . " = :" . $key . ' ';
-                    else
-                        $sqlText .= $key . " = :" . $key . ', ';
-            }
-        } else {
-            return 0;
-        }
-
-        $sqlText .= " WHERE operator_id = :operator_id";
-        //var_dump($sqlText);
-        $connection = Database::getConnection();
-        $connection->beginTransaction();
-        try {
-            $sql = $connection->prepare($sqlText);
-            //        //var_dump ($result);
-            // $sql->setFetchMode(PDO::FETCH_ASSOC);
-            if (isset($fields))
-                $result = $sql->execute($fields);
-            else
-                $result = $sql->execute();
-            // $result = $sql->fetchAll();
-            $connection->commit();
-            return $result;
-            // //var_dump($result);
-            // $dataset = array();
-            // foreach ($result as $row) {
-            //     array_push($dataset, new dataobjApartment($row["apartment_code"], $row["address"], $row["active_implants"]));
-            // }
-            // return $dataset;
-        } catch (PDOException $e) {
-            // roll back the transaction if something failed
-            $connection->rollback();
-            throw $e;
-        }
-    }
 
     public static function delete($where)
     {
-        $sqlText = "DELETE FROM operator";
+        $sqlText = "DELETE FROM users";
 
         if (isset($where) && count($where) > 0) {
             $sqlText .= " WHERE ";
@@ -121,7 +68,7 @@ class modeloperator
     // -----------------------------------------------------------------------------------------------------
     public static function select($where, $orderBy)
     {
-        $sqlText = "SELECT * FROM operator";
+        $sqlText = "SELECT * FROM users";
 
         if (isset($where) && count($where) > 0) {
             $sqlText .= " WHERE ";
@@ -133,10 +80,11 @@ class modeloperator
         if (isset($orderBy) && count($orderBy) > 0) {
             $sqlText .= " ORDER BY ";
             foreach ($orderBy as $key => $value) {
-                $sqlText .= " " . $key . " " . $value; // gestire separatore tra coppie
+                // $sqlText .= " " . $key . " " . $value; // gestire separatore tra coppie
+                $sqlText .= $key . "= :" . $key;
             }
         }
-        //        //var_dump ($sqlText);
+        //    //var_dump ($sqlText);
 
         $connection = Database::getConnection();
         $connection->beginTransaction();
@@ -150,10 +98,10 @@ class modeloperator
             $result = $sql->fetchAll();
             $connection->commit();
             // primo modo   return $result;
-
+            // //var_dump($result);
             $dataset = array();
             foreach ($result as $row) {
-                array_push($dataset, new dataobjOperator($row['operator_id'], $row['name'], $row['surname']));
+                array_push($dataset, new dataobjAccount($row["username"], $row["password"], $row["type"]));
             }
             return $dataset;
         } catch (PDOException $e) {

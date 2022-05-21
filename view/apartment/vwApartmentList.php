@@ -1,13 +1,17 @@
 <?php require_once 'view/vwheader.php'; ?>
 
+<h1 class="display-5 text-center">Apartments</h1>
+
+
 <div class="container mx-auto text-center">
     <form action="index.php?controller=ctrlapartment&action=insertapartment" method="post">
         <button type="submit" class="btn btn-primary">New</button>
     </form>
 </div>
+<br>
 <div class="container mx-auto mt-3 text-center">
     <?php
-    // var_dump($dataset);
+    // //var_dump($dataset);
     if (isset($dataset)) {
         $numcol = 3;
         $col = 0;
@@ -17,7 +21,7 @@
     ?>
                     <div class="row mb-4">
                         <div class="col">
-                            <div class="card mx-auto <?php echo(count($dataset) === 1 ? "mw-50" : "") ?> w-100 text-left">
+                            <div class="card mx-auto <?php echo (count($dataset) === 1 ? "mw-50" : "") ?> w-100 text-left">
                                 <div class="card-body">
                                     <h5 class="card-title"><b>Apartment <?php echo $row->getApartmentCode() ?></b></h5>
                                     <p class="card-text"><b>Location:</b> <?php echo $row->getAddress() ?></p>
@@ -26,14 +30,14 @@
                                         <input type="hidden" name="where" value="<?php echo $row->getApartmentCode() ?>">
                                         <button type="submit" class="btn btn-primary">Show plants</button>
                                     </form>
-                                    <?php if (isset($_SESSION["username"]) && $_SESSION["type"] > 0) { ?>
 
-                                        <form action="index.php?controller=ctrlapartment&action=updateapartment" method="POST">
-                                            <input type="hidden" name="where" value="<?php echo $row->getApartmentCode() ?>">
-                                            <button type="submit" class="btn btn-secondary">Edit</button>
-                                        </form>
+                                    <form action="index.php?controller=ctrlapartment&action=updateapartment" method="POST">
+                                        <input type="hidden" name="where" value="<?php echo $row->getApartmentCode() ?>">
+                                        <button type="submit" class="btn btn-secondary">Edit</button>
+                                    </form>
 
 
+                                    <?php if (isset($_SESSION["username"]) && $_SESSION["type"] === EDIT_LEVEL) { ?>
                                         <form action="index.php?controller=ctrlapartment&action=deleteapartment" method="POST">
                                             <input type="hidden" name="where" value="<?php echo $row->getApartmentCode() ?>">
                                             <button type="submit" class="btn btn-danger">Delete</button>
@@ -56,14 +60,14 @@
                                         <input type="hidden" name="where" value="<?php echo $row->getApartmentCode() ?>">
                                         <button type="submit" class="btn btn-primary">Show plants</button>
                                     </form>
-                                    <?php if (isset($_SESSION["username"]) && $_SESSION["type"] > 0) { ?>
 
-                                        <form action="index.php?controller=ctrlapartment&action=updateapartment" method="POST">
-                                            <input type="hidden" name="where" value="<?php echo $row->getApartmentCode() ?>">
-                                            <button type="submit" class="btn btn-secondary">Edit</button>
-                                        </form>
+                                    <form action="index.php?controller=ctrlapartment&action=updateapartment" method="POST">
+                                        <input type="hidden" name="where" value="<?php echo $row->getApartmentCode() ?>">
+                                        <button type="submit" class="btn btn-secondary">Edit</button>
+                                    </form>
 
 
+                                    <?php if (isset($_SESSION["username"]) && $_SESSION["type"] === EDIT_LEVEL) { ?>
                                         <form action="index.php?controller=ctrlapartment&action=deleteapartment" method="POST">
                                             <input type="hidden" name="where" value="<?php echo $row->getApartmentCode() ?>">
                                             <button type="submit" class="btn btn-danger">Delete</button>
@@ -87,15 +91,14 @@
                                     <input type="hidden" name="where" value="<?php echo $row->getApartmentCode() ?>">
                                     <button type="submit" class="btn btn-primary">Show plants</button>
                                 </form>
-                                <?php if (isset($_SESSION["username"]) && $_SESSION["type"] > 0) { ?>
 
-                                    <form action="index.php?controller=ctrlapartment&action=updateapartment" method="POST">
-                                        <input type="hidden" name="where" value="<?php echo $row->getApartmentCode() ?>">
-                                        <button type="submit" class="btn btn-secondary">Edit</button>
-                                    </form>
-
+                                <form action="index.php?controller=ctrlapartment&action=updateapartment" method="POST">
+                                    <input type="hidden" name="where" value="<?php echo $row->getApartmentCode() ?>">
+                                    <button type="submit" class="btn btn-secondary">Edit</button>
+                                </form>
 
 
+                                <?php if (isset($_SESSION["username"]) && $_SESSION["type"] === EDIT_LEVEL) { ?>
                                     <form action="index.php?controller=ctrlapartment&action=deleteapartment" method="POST">
                                         <input type="hidden" name="where" value="<?php echo $row->getApartmentCode() ?>">
                                         <button type="submit" class="btn btn-danger">Delete</button>

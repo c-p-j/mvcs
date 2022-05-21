@@ -17,8 +17,8 @@ class ctrlinstallation
     //         $where = [];
     //         $orderBy = [];
     //     };
-    //     var_dump($_GET);
-    //     var_dump($_POST);
+    //     //var_dump($_GET);
+    //     //var_dump($_POST);
 
     //     if (isset($_POST['order'])) {
     //         if ($_POST['order'] == 'installation_id') {
@@ -47,7 +47,14 @@ class ctrlinstallation
     {
         require_once 'model/moinstallation.php';
         $installation = new modelInstallation();
-        $dataset = $installation->select([], []);
+
+        try {
+            //code...
+            $dataset = $installation->select([], []);
+        } catch (PDOException $e) {
+            require_once 'view/errordb.php';
+            return;
+        }
         require_once 'view/installation/vwinstallationlist.php';
     }
 
@@ -62,7 +69,13 @@ class ctrlinstallation
 
             $row = new dataobjInstallation($_POST['datetime'], $_POST['plant_id'], $_POST['operator_id'], $_POST['status']);
             $installation = new modelInstallation();
-            $count = $installation->insert($row);
+            try {
+                //code...
+                $count = $installation->insert($row);
+            } catch (PDOException $e) {
+                require_once 'view/errordb.php';
+                return;
+            }
             require_once 'view/installation/vwinstallationinserted.php';
         } else {
             require_once 'model/moplant.php';
@@ -78,22 +91,28 @@ class ctrlinstallation
     {
         require_once 'model/moinstallation.php';
 
-        if (isset($_POST['wherePlant'], $_POST['whereOperator'])) {
+        if (isset($_POST['wherePlant'], $_POST['whereOperator']) /* && $_SESSION['type'] >= EDIT_LEVEL */) {
             $where = array('plant_id' => $_POST['wherePlant'], 'operator_id' => $_POST['whereOperator']); // expected given parameters
         } else {
             $where = [];
-            require_once 'view/error.php';
+            require_once 'view/errorpage.php';
             return;
         };
 
-        var_dump($where);
-        $installationModel = new modelInstallation();
-        $installation = $installationModel->select($where, []);
-        var_dump($installation);
+        //var_dump($where);
+        $installation = new modelInstallation();
+        $installationModel = $installation->select($where, []);
+        //var_dump($installationModel);
         $count = 0;
 
-        if ($installation[0]->getStatus() === "Pending") // works with one row only
-            $count = $installationModel->delete($where); // deletion of the installation via a query
+        if ($installationModel[0]->getStatus() === "Pending") // works with one row only
+            try {
+                //code...
+                $count = $installation->delete($where); // deletion of the installation via a query
+            } catch (PDOException $e) {
+                require_once 'view/errordb.php';
+                return;
+            }
         require_once 'view/installation/vwinstallationdeleted.php';
     }
 
@@ -107,9 +126,15 @@ class ctrlinstallation
         if (isset($_POST['plant_id'], $_POST['operator_id'])) {
             $fields = array('plant_id' => (int)$_POST['plant_id'], 'operator_id' => (int)$_POST['operator_id'], 'status' => $_POST['status'], 'datetime' => $_POST['datetime']); // array with the fields that are going to be updated
 
-            var_dump($fields);
+            //var_dump($fields);
             $installation = new modelInstallation();
-            $count = $installation->update($fields);  // updates the fields via a query
+            try {
+                //code...
+                $count = $installation->update($fields);  // updates the fields via a query
+            } catch (PDOException $e) {
+                require_once 'view/errordb.php';
+                return;
+            }
             require_once 'view/installation/vwinstallationupdated.php';
         } else {
             require_once 'model/moplant.php';

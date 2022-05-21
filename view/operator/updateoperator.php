@@ -14,7 +14,7 @@ require 'view/vwheader.php';
                     <?php
                     if (isset($_POST['where'])) {
                     ?>
-                        <option value='<?php echo ($_POST['where']) ?>'> Default: <?php echo ($_POST['where']) ?></option>
+                        <option value="<?php echo ($_POST['where']) ?>"> Default: <?php echo ($_POST['where']) ?></option>
                     <?php
                     }
                     $sns = new modelOperator();
@@ -37,6 +37,7 @@ require 'view/vwheader.php';
 
         <div class="col ">
             <i class="fa fa-briefcase fa-border fa-5x" aria-hidden="true"> </i>
+            <p class="text-danger text-center">The blank data will be kept as the previous values</p>
             <p class="text-danger text-center">Changing the primary key is not allowed</p>
         </div>
     </div>

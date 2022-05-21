@@ -4,7 +4,7 @@ require_once "view/vwheader.php";
 
 <div class="page text-center">
     <h2>
-        <?php echo "$count plantmodel/s inserted successfully"; ?>
+        <?php echo "$count sensormodel/s inserted successfully"; ?>
     </h2>
     <a href='http://localhost/mvcs/?controller=ctrlapartment&action=viewapartmentall'> Previous page</a>
 </div>
